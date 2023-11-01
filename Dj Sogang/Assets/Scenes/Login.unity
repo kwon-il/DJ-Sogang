@@ -1219,7 +1219,7 @@ MonoBehaviour:
   m_text: "\uB85C\uADF8\uC778"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7cd3b54aac712bf4f82e68f2ad3dd5b3, type: 2}
-  m_sharedMaterial: {fileID: 7389470720203760772, guid: 7cd3b54aac712bf4f82e68f2ad3dd5b3, type: 2}
+  m_sharedMaterial: {fileID: -3088869355738616374, guid: 7cd3b54aac712bf4f82e68f2ad3dd5b3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1421,7 +1421,7 @@ MonoBehaviour:
   m_text: "\uD68C\uC6D0\uAC00\uC785"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7cd3b54aac712bf4f82e68f2ad3dd5b3, type: 2}
-  m_sharedMaterial: {fileID: 7389470720203760772, guid: 7cd3b54aac712bf4f82e68f2ad3dd5b3, type: 2}
+  m_sharedMaterial: {fileID: -3088869355738616374, guid: 7cd3b54aac712bf4f82e68f2ad3dd5b3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1638,7 +1638,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.746155, g: 0.8773585, b: 0.6000801, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
