@@ -2,11 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
+
+public class GoogleData
+{
+    public string order, result, msg, value;
+}
 
 public class Login : MonoBehaviour
 {
+    const string URL = "https://script.google.com/macros/s/AKfycbySJG6ZCcV80x0vtBXxEnwT00FzR7XZUmbrzzX8YDBhDaNGMrKc_YXqo19J7aoOraCPgQ/exec";
+    string id, pwd;
+
+    public GoogleData GD;
     public InputField usernameInput;
     public InputField passwordInput;
+    public InputField ValueInput;
     public Button loginButton;
     public Button RegisterButton; // 변수 이름 수정
     public Text loginStatusText;
@@ -14,12 +25,67 @@ public class Login : MonoBehaviour
     private string correctUsername = "your_username"; // 실제 사용자 이름으로 변경
     private string correctPassword = "your_password"; // 실제 비밀번호로 변경
 
-    private void Start()
+    bool SetIDPass()
     {
-        // 버튼 클릭 시 로그인 함수 호출
-        loginButton.onClick.AddListener(AttemptLogin);
+        id = usernameInput.text.Trim();
+        pwd = passwordInput.text.Trim();
+
+        if (id == "" || pwd == "") return false;
+        else return true;
     }
 
+    public void Register()
+    {
+        //print("asdf");
+        if (!SetIDPass())
+        {
+            print("is NULL");
+            return;
+        }
+        //print("asdf");
+        WWWForm form = new WWWForm();
+        form.AddField("order", "register");
+        form.AddField("id", id);
+        form.AddField("pwd", pwd);
+
+        StartCoroutine(Post(form));
+    }
+
+    IEnumerator Post(WWWForm form)
+    {
+        using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // 반드시 using을 써야한다
+        {
+            yield return www.SendWebRequest();
+            print("asderf");
+            if (www.isDone) Response(www.downloadHandler.text);
+            else print("웹의 응답이 없습니다.");
+            print("asdfqqwerqwerqwe");
+        }
+        print("asdf");
+    }
+
+    void Response(string json)
+    {
+        
+        if (string.IsNullOrEmpty(json)) return;
+        print("asdfqqwerqqwerqwerqwerwerqwe");
+        GD = JsonUtility.FromJson<GoogleData>(json);
+        print("asdfqqwerqqwerqwerqwerwerqwe");
+        if (GD.result == "ERROR")
+        {
+            print(GD.order + "을 실행할 수 없습니다. 에러 메시지 : " + GD.msg);
+            return;
+        }
+
+        print(GD.order + "을 실행했습니다. 메시지 : " + GD.msg);
+
+        if (GD.order == "getValue")
+        {
+            ValueInput.text = GD.value;
+        }
+    }
+
+    /*
     private void AttemptLogin()
     {
         string username = usernameInput.text;
@@ -46,4 +112,8 @@ public class Login : MonoBehaviour
             loginStatusText.text = "로그인 실패. 사용자 이름 또는 비밀번호가 일치하지 않습니다.";
         }
     }
+
+    */
+
+
 }
