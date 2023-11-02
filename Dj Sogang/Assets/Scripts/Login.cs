@@ -11,8 +11,8 @@ public class GoogleData
 
 public class Login : MonoBehaviour
 {
-    const string URL = "https://script.google.com/macros/s/AKfycbySJG6ZCcV80x0vtBXxEnwT00FzR7XZUmbrzzX8YDBhDaNGMrKc_YXqo19J7aoOraCPgQ/exec";
-    string id, pwd;
+    const string URL = "https://script.google.com/macros/s/AKfycbxNtodzt4JZGqkJ6Np3m1gehJWnYf5qKbng0caJmWBj30ZxC-h_csxjxlEI3SeRoo_vKA/exec";
+    string id, pass;
 
     public GoogleData GD;
     public InputField usernameInput;
@@ -28,9 +28,9 @@ public class Login : MonoBehaviour
     bool SetIDPass()
     {
         id = usernameInput.text.Trim();
-        pwd = passwordInput.text.Trim();
+        pass = passwordInput.text.Trim();
 
-        if (id == "" || pwd == "") return false;
+        if (id == "" || pass == "") return false;
         else return true;
     }
 
@@ -46,7 +46,7 @@ public class Login : MonoBehaviour
         WWWForm form = new WWWForm();
         form.AddField("order", "register");
         form.AddField("id", id);
-        form.AddField("pwd", pwd);
+        form.AddField("pass", pass);
 
         StartCoroutine(Post(form));
     }
@@ -56,10 +56,10 @@ public class Login : MonoBehaviour
         using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // 반드시 using을 써야한다
         {
             yield return www.SendWebRequest();
-            print("asderf");
+            //print("asderf");
             if (www.isDone) Response(www.downloadHandler.text);
             else print("웹의 응답이 없습니다.");
-            print("asdfqqwerqwerqwe");
+            //print("asdfqqwerqwerqwe");
         }
         print("asdf");
     }
@@ -68,9 +68,9 @@ public class Login : MonoBehaviour
     {
         
         if (string.IsNullOrEmpty(json)) return;
-        print("asdfqqwerqqwerqwerqwerwerqwe");
+        //print("asdfqqwerqqwerqwerqwerwerqwe");
         GD = JsonUtility.FromJson<GoogleData>(json);
-        print("asdfqqwerqqwerqwerqwerwerqwe");
+        //print("asdfqqwerqqwerqwerqwerwerqwe");
         if (GD.result == "ERROR")
         {
             print(GD.order + "을 실행할 수 없습니다. 에러 메시지 : " + GD.msg);
