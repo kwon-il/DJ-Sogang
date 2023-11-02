@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class GoogleData
 {
@@ -11,7 +12,7 @@ public class GoogleData
 
 public class Login : MonoBehaviour
 {
-    const string URL = "https://script.google.com/macros/s/AKfycbxNtodzt4JZGqkJ6Np3m1gehJWnYf5qKbng0caJmWBj30ZxC-h_csxjxlEI3SeRoo_vKA/exec";
+    const string URL = "https://script.google.com/macros/s/AKfycbzwHUb7yC1ud3rDt3wYcQm1ojH5-51E7OElDCBJwV_H5v9QEWR7U4_X3SapqJavPtY6nQ/exec";
     string id, pass;
 
     public GoogleData GD;
@@ -51,6 +52,22 @@ public class Login : MonoBehaviour
         StartCoroutine(Post(form));
     }
 
+    public void Log_in()
+    {
+        if (!SetIDPass())
+        {
+            print("아이디 또는 비밀번호가 비어있습니다");
+            return;
+        }
+
+        WWWForm form = new WWWForm();
+        form.AddField("order", "login");
+        form.AddField("id", id);
+        form.AddField("pass", pass);
+
+        StartCoroutine(Post(form));
+    }
+
     IEnumerator Post(WWWForm form)
     {
         using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // 반드시 using을 써야한다
@@ -78,7 +95,7 @@ public class Login : MonoBehaviour
         }
 
         print(GD.order + "을 실행했습니다. 메시지 : " + GD.msg);
-
+        SceneManager.LoadScene("Main");
         if (GD.order == "getValue")
         {
             ValueInput.text = GD.value;
