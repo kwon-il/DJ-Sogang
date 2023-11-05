@@ -46,8 +46,7 @@ public class RedVelvetDumbDumb : MonoBehaviour
             Debug.LogError("Image 컴포넌트 또는 씬 이미지를 찾을 수 없습니다.");
         }
         SetImageToFillCanvas(canvasImage);
-        audioSource.Play();
-        StartCoroutine(PlayMusicWithDelay(0.0f, sceneName));
+        StartCoroutine(PlayMusicWithDelay(3.0f, sceneName));
     }
 
     // Update is called once per frame
