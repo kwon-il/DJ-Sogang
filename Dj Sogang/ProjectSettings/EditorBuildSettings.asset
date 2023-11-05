@@ -11,4 +11,25 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Login.unity
     guid: 9ed1cb71c3dc47c41946d827f24583f5
+  - enabled: 1
+    path: Assets/Scenes/Main.unity
+    guid: 86c13836143905647810a46a7904e057
+  - enabled: 1
+    path: "Assets/Scenes/\uD718\uD30C\uB78C\uB85C\uC774\uD0B4.unity"
+    guid: 58ad8704215389f4c854de0f24f0710f
+  - enabled: 1
+    path: Assets/Scenes/RedVelvetDumbDumb.unity
+    guid: 7b4d96cc05f871248bb98738a25a18f9
+  - enabled: 1
+    path: "Assets/Scenes/FT\uC544\uC77C\uB79C\uB4DC\uBC14\uB798.unity"
+    guid: 85762b73ac735ba42a07df59edad963f
+  - enabled: 1
+    path: "Assets/Scenes/\uBC84\uC2A4\uCEE4\uBC84\uC2A4\uCEE4\uBC9A\uAF43\uC5D4\uB529.unity"
+    guid: d19c312aaf05c8a44a0617e4933a5336
+  - enabled: 1
+    path: "Assets/Scenes/\uC9C0\uCF54\uB108\uB294\uB098\uB098\uB294\uB108.unity"
+    guid: eb5259626fe7af142a579126217c2da2
+  - enabled: 1
+    path: "Assets/Scenes/\uBE44\uC2A4\uD2B8\uC544\uB984\uB2E4\uC6B4\uBC24\uC774\uC57C.unity"
+    guid: e3b8d3436c4f6bf4581a1bc29b95e5d0
   m_configObjects: {}

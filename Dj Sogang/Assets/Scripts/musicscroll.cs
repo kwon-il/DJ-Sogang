@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class musicscroll : MonoBehaviour
 {
@@ -40,6 +41,8 @@ public class musicscroll : MonoBehaviour
 
         HighlightItem();
         ScrollToSelected();
+
+        
     }
     else if (Input.GetKeyDown(KeyCode.DownArrow))
     {
@@ -56,6 +59,10 @@ public class musicscroll : MonoBehaviour
         HighlightItem();
         ScrollToSelected();
     }
+    if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+    {
+        LoadSelectedMusicScene();
+    }
 }
 
     void LoadMusic()
@@ -71,6 +78,7 @@ public class musicscroll : MonoBehaviour
             TextAsset textAsset = Resources.Load<TextAsset>("Text/" + track.name);
 
             GameObject newItem = Instantiate(itemPrefab, contentPanel);
+            newItem.name = track.name;
             items.Add(newItem);
             Image imageComponent = newItem.GetComponentInChildren<Image>();
 
@@ -159,6 +167,22 @@ public class musicscroll : MonoBehaviour
     else
     {
         Debug.LogError("ScrollRect가 할당되지 않았습니다.");
+    }
+}
+
+void LoadSelectedMusicScene()
+{
+    // 선택된 음악의 이름을 가져옵니다.
+    AudioClip selectedTrack = Resources.Load<AudioClip>("Music/" + items[selectedIndex].name);
+    if (selectedTrack != null)
+    {
+        // AudioClip의 이름을 사용하여 동일한 이름의 씬을 로드합니다.
+        // 프로젝트의 구조와 명명 규칙에 따라 적절히 수정하십시오.
+        SceneManager.LoadScene(selectedTrack.name); // 가정: 씬들이 "TrackNameScene"과 같이 명명되어 있음
+    }
+    else
+    {
+        Debug.LogError("선택된 트랙이 null이거나 해당 트랙에 대한 씬을 찾을 수 없습니다: " + items[selectedIndex].name);
     }
 }
 }
