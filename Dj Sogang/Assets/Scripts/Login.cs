@@ -20,11 +20,11 @@ public class Login : MonoBehaviour
     public InputField passwordInput;
     public InputField ValueInput;
     public Button loginButton;
-    public Button RegisterButton; // º¯¼ö ÀÌ¸§ ¼öÁ¤
+    public Button RegisterButton; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½
     public Text loginStatusText;
 
-    private string correctUsername = "your_username"; // ½ÇÁ¦ »ç¿ëÀÚ ÀÌ¸§À¸·Î º¯°æ
-    private string correctPassword = "your_password"; // ½ÇÁ¦ ºñ¹Ð¹øÈ£·Î º¯°æ
+    private string correctUsername = "your_username"; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    private string correctPassword = "your_password"; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ð¹ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     bool SetIDPass()
     {
@@ -56,7 +56,7 @@ public class Login : MonoBehaviour
     {
         if (!SetIDPass())
         {
-            print("¾ÆÀÌµð ¶Ç´Â ºñ¹Ð¹øÈ£°¡ ºñ¾îÀÖ½À´Ï´Ù");
+            print("ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½Ð¹ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö½ï¿½ï¿½Ï´ï¿½");
             return;
         }
 
@@ -70,15 +70,15 @@ public class Login : MonoBehaviour
 
     IEnumerator Post(WWWForm form)
     {
-        using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // ¹Ýµå½Ã usingÀ» ½á¾ßÇÑ´Ù
+        using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // ï¿½Ýµï¿½ï¿½ usingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½
         {
             yield return www.SendWebRequest();
             //print("asderf");
             if (www.isDone) Response(www.downloadHandler.text);
-            else print("À¥ÀÇ ÀÀ´äÀÌ ¾ø½À´Ï´Ù.");
+            else print("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
             //print("asdfqqwerqwerqwe");
         }
-        print("asdf");
+        //print("asdf");
     }
 
     void Response(string json)
@@ -90,11 +90,11 @@ public class Login : MonoBehaviour
         //print("asdfqqwerqqwerqwerqwerwerqwe");
         if (GD.result == "ERROR")
         {
-            print(GD.order + "À» ½ÇÇàÇÒ ¼ö ¾ø½À´Ï´Ù. ¿¡·¯ ¸Þ½ÃÁö : " + GD.msg);
+            print(GD.order + "ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½. ï¿½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ : " + GD.msg);
             return;
         }
 
-        print(GD.order + "À» ½ÇÇàÇß½À´Ï´Ù. ¸Þ½ÃÁö : " + GD.msg);
+        print(GD.order + "ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½. ï¿½Þ½ï¿½ï¿½ï¿½ : " + GD.msg);
         SceneManager.LoadScene("Main");
         if (GD.order == "getValue")
         {
@@ -108,25 +108,25 @@ public class Login : MonoBehaviour
         string username = usernameInput.text;
         string password = passwordInput.text;
 
-        // ½ÇÁ¦ ·Î±×ÀÎ ·ÎÁ÷À» ±¸ÇöÇÏ°í °ËÁõÇÏ´Â °÷ÀÔ´Ï´Ù.
-        // ¿¹¸¦ µé¾î, »ç¿ëÀÚ ÀÌ¸§°ú ºñ¹Ð¹øÈ£¸¦ È®ÀÎÇÏ°í ·Î±×ÀÎ ¼º°ø ½Ã ´ÙÀ½ È­¸éÀ¸·Î ÀÌµ¿ÇÕ´Ï´Ù.
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Ô´Ï´ï¿½.
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½Ð¹ï¿½È£ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Õ´Ï´ï¿½.
         if (username == correctUsername && password == correctPassword)
         {
-            loginButton.gameObject.SetActive(false); // ·Î±×ÀÎ ¹öÆ° ºñÈ°¼ºÈ­
-            RegisterButton.gameObject.SetActive(false); // È¸¿ø °¡ÀÔ ¹öÆ° ºñÈ°¼ºÈ­ (º¯¼ö ÀÌ¸§ ¼öÁ¤)
-            usernameInput.gameObject.SetActive(false); // ¾ÆÀÌµð ÀÔ·Â ÇÊµå È°¼ºÈ­
-            passwordInput.gameObject.SetActive(false); // ºñ¹Ð¹øÈ£ ÀÔ·Â ÇÊµå È°¼ºÈ­
-            loginStatusText.text = "·Î±×ÀÎ ¼º°ø!";
+            loginButton.gameObject.SetActive(false); // ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½È°ï¿½ï¿½È­
+            RegisterButton.gameObject.SetActive(false); // È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½È°ï¿½ï¿½È­ (ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½)
+            usernameInput.gameObject.SetActive(false); // ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Ô·ï¿½ ï¿½Êµï¿½ È°ï¿½ï¿½È­
+            passwordInput.gameObject.SetActive(false); // ï¿½ï¿½Ð¹ï¿½È£ ï¿½Ô·ï¿½ ï¿½Êµï¿½ È°ï¿½ï¿½È­
+            loginStatusText.text = "ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!";
 
-            // ´ÙÀ½ È­¸éÀ¸·Î ÀÌµ¿ÇÏ°Å³ª °ÔÀÓÀ» ½ÃÀÛÇÏ´Â ·ÎÁ÷À» Ãß°¡ÇÏ¼¼¿ä.
+            // ï¿½ï¿½ï¿½ï¿½ È­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Ï°Å³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½.
         }
         else
         {
-            loginButton.gameObject.SetActive(false); // ·Î±×ÀÎ ¹öÆ° ºñÈ°¼ºÈ­
-            RegisterButton.gameObject.SetActive(false); // È¸¿ø °¡ÀÔ ¹öÆ° ºñÈ°¼ºÈ­ (º¯¼ö ÀÌ¸§ ¼öÁ¤)
-            usernameInput.gameObject.SetActive(false); // ¾ÆÀÌµð ÀÔ·Â ÇÊµå È°¼ºÈ­
-            passwordInput.gameObject.SetActive(false); // ºñ¹Ð¹øÈ£ ÀÔ·Â ÇÊµå È°¼ºÈ­
-            loginStatusText.text = "·Î±×ÀÎ ½ÇÆÐ. »ç¿ëÀÚ ÀÌ¸§ ¶Ç´Â ºñ¹Ð¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.";
+            loginButton.gameObject.SetActive(false); // ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½È°ï¿½ï¿½È­
+            RegisterButton.gameObject.SetActive(false); // È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½È°ï¿½ï¿½È­ (ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½)
+            usernameInput.gameObject.SetActive(false); // ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Ô·ï¿½ ï¿½Êµï¿½ È°ï¿½ï¿½È­
+            passwordInput.gameObject.SetActive(false); // ï¿½ï¿½Ð¹ï¿½È£ ï¿½Ô·ï¿½ ï¿½Êµï¿½ È°ï¿½ï¿½È­
+            loginStatusText.text = "ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½Ð¹ï¿½È£ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½.";
         }
     }
 
