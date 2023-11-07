@@ -9,7 +9,7 @@ public class RedVelvetDumbDumb : MonoBehaviour
 {
     public Image canvasImage; // Inspector에서 Image 컴포넌트를 할당하세요
     private AudioSource audioSource;
-    public AudioMixerGroup mixerGroup;
+    //public AudioMixerGroup mixerGroup;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +24,7 @@ public class RedVelvetDumbDumb : MonoBehaviour
             Debug.Log("AudioSource가 Canvas에 추가되었습니다.");
         }
 
-        audioSource.outputAudioMixerGroup = mixerGroup;
+        //audioSource.outputAudioMixerGroup = mixerGroup;
         Debug.Log("Mixer Group assigned: " + audioSource.outputAudioMixerGroup);
 
         // 현재 씬의 이름을 가져옵니다
