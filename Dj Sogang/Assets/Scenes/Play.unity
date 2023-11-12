@@ -303,11 +303,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 794289477}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 471935932b4f1cd46947e8b4cc2a767a, type: 3}
+  m_Script: {fileID: 11500000, guid: 342d0c8d11224364384e3acb07aee634, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   canvasImage: {fileID: 1300718505}
-  mixerGroup: {fileID: 24300002, guid: 43c9827545b821c428d587274885b18e, type: 2}
 --- !u!1 &1054335846
 GameObject:
   m_ObjectHideFlags: 0

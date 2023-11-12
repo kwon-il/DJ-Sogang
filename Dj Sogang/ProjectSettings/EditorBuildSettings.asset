@@ -18,7 +18,7 @@ EditorBuildSettings:
     path: "Assets/Scenes/\uD718\uD30C\uB78C\uB85C\uC774\uD0B4.unity"
     guid: 58ad8704215389f4c854de0f24f0710f
   - enabled: 1
-    path: Assets/Scenes/RedVelvetDumbDumb.unity
+    path: Assets/Scenes/Play.unity
     guid: 7b4d96cc05f871248bb98738a25a18f9
   - enabled: 1
     path: "Assets/Scenes/FT\uC544\uC77C\uB79C\uB4DC\uBC14\uB798.unity"

@@ -5,16 +5,16 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
 
-public class RedVelvetDumbDumb : MonoBehaviour
+public class play : MonoBehaviour
 {
     public Image canvasImage; // Inspector에서 Image 컴포넌트를 할당하세요
     private AudioSource audioSource;
+    string currentMusicName = GlobalData.musicName;
     //public AudioMixerGroup mixerGroup;
 
     // Start is called before the first frame update
     void Start()
     {   
-
         GameObject canvasObject = GameObject.Find("Canvas"); 
         audioSource = canvasObject.GetComponent<AudioSource>();
 
@@ -27,11 +27,8 @@ public class RedVelvetDumbDumb : MonoBehaviour
         //audioSource.outputAudioMixerGroup = mixerGroup;
         Debug.Log("Mixer Group assigned: " + audioSource.outputAudioMixerGroup);
 
-        // 현재 씬의 이름을 가져옵니다
-        string sceneName = SceneManager.GetActiveScene().name;
-
         // Resources/Photo 폴더에서 씬 이름과 일치하는 이미지를 불러옵니다
-        Sprite sceneImage = Resources.Load<Sprite>("Photo/" + sceneName);
+        Sprite sceneImage = Resources.Load<Sprite>("Photo/" + currentMusicName);
 
         // 이미지를 찾았고 canvasImage가 할당되었다면 스프라이트를 설정합니다
         if (canvasImage != null && sceneImage != null)
@@ -46,7 +43,7 @@ public class RedVelvetDumbDumb : MonoBehaviour
             Debug.LogError("Image 컴포넌트 또는 씬 이미지를 찾을 수 없습니다.");
         }
         SetImageToFillCanvas(canvasImage);
-        StartCoroutine(PlayMusicWithDelay(3.0f, sceneName));
+        StartCoroutine(PlayMusicWithDelay(3.0f));
     }
 
     // Update is called once per frame
@@ -63,13 +60,13 @@ public class RedVelvetDumbDumb : MonoBehaviour
         rt.offsetMin = Vector2.zero; // 왼쪽 아래 구석
         rt.offsetMax = Vector2.zero; // 오른쪽 위 구석
     }
-    IEnumerator PlayMusicWithDelay(float delay, string sceneName)
+    IEnumerator PlayMusicWithDelay(float delay)
     {
         // 지정된 시간(초) 동안 대기
         yield return new WaitForSeconds(delay);
 
         // Resources/Music 폴더에서 씬 이름과 일치하는 음악 파일을 불러옵니다
-        AudioClip musicClip = Resources.Load<AudioClip>("Music/" + sceneName);
+        AudioClip musicClip = Resources.Load<AudioClip>("Music/" + currentMusicName);
 
         // 음악 클립을 찾았다면 재생합니다
         if (musicClip != null)
@@ -80,7 +77,7 @@ public class RedVelvetDumbDumb : MonoBehaviour
         }
         else
         {
-            Debug.LogError("음악 클립을 찾을 수 없습니다: " + sceneName);
+            Debug.LogError("음악 클립을 찾을 수 없습니다: " + currentMusicName);
         }
     }
 }
