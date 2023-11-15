@@ -26,6 +26,20 @@ public class Login : MonoBehaviour
     //private string correctUsername = "your_username"; // ���� ����� �̸����� ����
     //private string correctPassword = "your_password"; // ���� ��й�ȣ�� ����
 
+    void Update()
+{
+    if (Input.GetKeyDown(KeyCode.Tab))
+    {
+        if (usernameInput.isFocused)
+        {
+            passwordInput.Select();
+        }
+        else if (passwordInput.isFocused)
+        {
+            usernameInput.Select();
+        }
+    }
+}
     bool SetIDPass()
     {
         id = usernameInput.text.Trim();
@@ -34,7 +48,7 @@ public class Login : MonoBehaviour
         if (id == "" || pass == "") return false;
         else return true;
     }
-
+    
     public void Register()
     {
         //print("asdf");
