@@ -9,6 +9,6 @@ public class AudioManager : MonoBehaviour
     public void Start()
     {
         myAudio = GetComponent<AudioSource>();
-        myAudio.Play();
+        myAudio.Play(100000);
     }
 }
