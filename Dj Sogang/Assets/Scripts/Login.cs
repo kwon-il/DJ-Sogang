@@ -12,7 +12,7 @@ public class GoogleData
 
 public class Login : MonoBehaviour
 {
-    const string URL = "https://script.google.com/macros/s/AKfycbzwHUb7yC1ud3rDt3wYcQm1ojH5-51E7OElDCBJwV_H5v9QEWR7U4_X3SapqJavPtY6nQ/exec";
+    const string URL = "https://script.google.com/macros/s/AKfycbweZuLIWLFQTAMtVHXjPbnJKR7HBoH-BTJ17cY9wGXhHlE-XVSNeL1axqHE-WgM8MUENQ/exec";
     string id, pass;
 
     public GoogleData GD;
