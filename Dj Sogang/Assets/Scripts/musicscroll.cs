@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class musicscroll : MonoBehaviour
 {
@@ -14,9 +15,11 @@ public class musicscroll : MonoBehaviour
     private List<GameObject> items = new List<GameObject>(); // 아이템들의 리스트
     private int selectedIndex = 0; // 현재 선택된 아이템의 인덱스
     public Image mainSceneImage; // Inspector에서 메인 씬의 Image UI 요소 할당
-
+    public AudioSource audioSource;
     void Start()
-    {
+    {   
+        GameObject canvasObject = GameObject.Find("Canvas"); 
+        audioSource = canvasObject.GetComponent<AudioSource>();
         LoadMusic();
         if (items.Count > 0)
         {
@@ -40,9 +43,7 @@ public class musicscroll : MonoBehaviour
         }
 
         HighlightItem();
-        ScrollToSelected();
-
-        
+        ScrollToSelected();  
     }
     else if (Input.GetKeyDown(KeyCode.DownArrow))
     {
@@ -63,8 +64,12 @@ public class musicscroll : MonoBehaviour
     {
         LoadSelectedMusicScene();
     }
+    if (Input.GetKeyDown(KeyCode.Tab))
+    {
+        StartCoroutine(PreviewMusic());
+    }
 }
-
+    
     void LoadMusic()
     {
         AudioClip[] musicTracks = Resources.LoadAll<AudioClip>("Music");
@@ -116,8 +121,30 @@ public class musicscroll : MonoBehaviour
             {
                 Debug.LogError("텍스트 프리팹을 로드할 수 없습니다: " + track.name);
             }
+            
         }
         
+    }
+    IEnumerator PreviewMusic()
+    {
+        if (selectedIndex >= 0 && selectedIndex < items.Count)
+        {
+            AudioClip clip = Resources.Load<AudioClip>("Music/" + items[selectedIndex].name);
+            if (clip != null)
+            {
+                audioSource.clip = clip;
+                audioSource.Play();
+
+                yield return new WaitForSeconds(20); // Preview for 20 seconds
+
+                audioSource.Stop();
+            }
+            else
+            {
+                Debug.LogError("Audio clip not found for: " + items[selectedIndex].name);
+            }
+        }
+        yield return null;
     }
     void HighlightItem()
     {

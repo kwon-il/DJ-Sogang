@@ -99,11 +99,14 @@ public class Login : MonoBehaviour
         GD = JsonUtility.FromJson<GoogleData>(json);
         if (GD.result == "ERROR")
         {
-            print(GD.order + "�� ������ �� �����ϴ�. ���� �޽��� : " + GD.msg);
+            print(GD.order + "login failed : " + GD.msg);
             return;
         }
 
-        print(GD.order + "�� �����߽��ϴ�. �޽��� : " + GD.msg);
+        print(GD.order + "log in success : " + GD.msg);
+        GlobalData.myID = id;
+        //print(GlobalData.myID);
+
         SceneManager.LoadScene("Main");
         if (GD.order == "getValue")
         {
