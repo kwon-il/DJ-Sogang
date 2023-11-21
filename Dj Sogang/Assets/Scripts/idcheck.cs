@@ -13,7 +13,7 @@ public class idcheck : MonoBehaviour
         if (idText != null)
         {
             // Assign the myID value to the text component
-            idText.text = GlobalData.myID;
+            idText.text = GlobalData.nickname;
             print(idText.text);
         }
         else
