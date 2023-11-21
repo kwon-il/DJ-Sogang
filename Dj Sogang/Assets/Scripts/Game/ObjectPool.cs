@@ -19,12 +19,14 @@ public class ObjectPool : MonoBehaviour
     public static ObjectPool instance;
 
     public Queue<GameObject> noteQueue = new Queue<GameObject>();
+    public Queue<GameObject> noteQueueSP = new Queue<GameObject>();
 
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
         noteQueue = InsertQueue(objectInfo[0]);
+        noteQueueSP = InsertQueue(objectInfo[1]);
     }
 
     Queue<GameObject> InsertQueue(ObjectInfo p_objectInfo)
