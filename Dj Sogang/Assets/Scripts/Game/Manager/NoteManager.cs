@@ -6,15 +6,17 @@ using UnityEngine;
 public class NoteManager : MonoBehaviour
 {
     public double speed = 0d;
+    public double speedSP = 0d;
     double currentTime = 0d;
     int idx = 0;
-    int dfjk = 0;
 
     [SerializeField] Transform[] tfNoteAppear = null;
     [SerializeField] Transform[] tfNoteAppearSP = null;
     //[SerializeField] GameObject goNote = null;
     [SerializeField] TextAsset noteTime = null;
-    string[] times = null;
+    [SerializeField] TextAsset noteTimeNEW = null;
+    string[] timesALL = null;
+    string[][] timesALLt = null;
 
 
     TimingManager theTimingManager;
@@ -24,10 +26,15 @@ public class NoteManager : MonoBehaviour
     {
         theEffectManager = FindObjectOfType<EffectManager>();
         theTimingManager = GetComponent<TimingManager>();
-        theComboManager =FindObjectOfType<ComboManager>();
+        theComboManager = FindObjectOfType<ComboManager>();
 
-        times = noteTime.text.Split("\n");
-        
+
+        timesALL = noteTimeNEW.text.Split("\n");
+        timesALLt = new string[timesALL.Length][];
+        for (int i = 0; i < timesALL.Length; i++) 
+        {
+            timesALLt[i] = timesALL[i].Split(" ");
+        }
     }
 
     // Update is called once per frame
@@ -35,37 +42,40 @@ public class NoteManager : MonoBehaviour
     {
         currentTime += UnityEngine.Time.deltaTime;
 
-        if(idx < times.Length)
+        if (idx < timesALLt.Length)
         {
-            if (Double.Parse(times[idx])+speed <= currentTime)
+            if (int.Parse(timesALLt[idx][1]) == 5 || int.Parse(timesALLt[idx][1]) == 6)
             {
-                if (dfjk >= 4)
+                if (Double.Parse(timesALLt[idx][0]) + speedSP <= currentTime)
                 {
                     GameObject t_noteSP = ObjectPool.instance.noteQueueSP.Dequeue();
-                    t_noteSP.transform.position = tfNoteAppearSP[dfjk - 4].position;
+                    int dfjk = int.Parse(timesALLt[idx][1]);
+                    //Debug.Log(timesALLt[idx][1]);
+                    t_noteSP.transform.position = tfNoteAppearSP[dfjk - 5].position;
                     t_noteSP.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                     t_noteSP.SetActive(true);
                     theTimingManager.boxNoteListSP.Add(t_noteSP);
+
+                    idx++;
                 }
-                else
+            }
+            else
+            {
+                if (Double.Parse(timesALLt[idx][0]) + speed <= currentTime)
                 {
                     GameObject t_note = ObjectPool.instance.noteQueue.Dequeue();
-                    t_note.transform.position = tfNoteAppear[dfjk].position;
+                    int dfjk = int.Parse(timesALLt[idx][1]);
+                    //Debug.Log(timesALLt[idx][1]);
+                    t_note.transform.position = tfNoteAppear[dfjk - 1].position;
                     t_note.SetActive(true);
                     //GameObject t_note = Instantiate(goNote, tfNoteAppear[dfjk].position, Quaternion.identity);
                     //t_note.transform.SetParent(this.transform);
                     theTimingManager.boxNoteList.Add(t_note);
-                }            
 
-                idx++;
-                dfjk++;
-                if (dfjk >= tfNoteAppear.Length + tfNoteAppearSP.Length)
-                {
-                    dfjk = 0;
+                    idx++;
                 }
             }
         }
-
     }
 
     private void OnTriggerExit2D(Collider2D collision)

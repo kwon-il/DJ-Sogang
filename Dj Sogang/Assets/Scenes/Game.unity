@@ -2713,7 +2713,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38a5a7882253b034a84ec958febc38d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.62
+  speed: 0.58
+  speedSP: 0.75
   tfNoteAppear:
   - {fileID: 989177164}
   - {fileID: 803036872}
@@ -2723,6 +2724,7 @@ MonoBehaviour:
   - {fileID: 288806827}
   - {fileID: 628172779}
   noteTime: {fileID: 4900000, guid: 3252b9bb1f4c7f945bf605ac7c21b070, type: 3}
+  noteTimeNEW: {fileID: 4900000, guid: d14c1a0f2641e3d4eb2902d3139d8822, type: 3}
 --- !u!61 &897449516
 BoxCollider2D:
   m_ObjectHideFlags: 0
