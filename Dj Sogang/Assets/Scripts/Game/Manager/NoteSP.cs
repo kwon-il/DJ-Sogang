@@ -20,7 +20,7 @@ public class NoteSP : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.localScale -= new Vector3(0.5f, 0.5f, 0.5f) * UnityEngine.Time.deltaTime;
+        transform.localScale -= new Vector3(0.3f, 0.3f, 0.3f) * UnityEngine.Time.deltaTime;
     }
 
     public void HideNote()

@@ -39,34 +39,27 @@ public class NoteManager : MonoBehaviour
         {
             if (Double.Parse(times[idx])+speed <= currentTime)
             {
-                GameObject t_note = ObjectPool.instance.noteQueue.Dequeue();
-                t_note.transform.position = tfNoteAppear[dfjk].position;
-                t_note.SetActive(true);
-                //GameObject t_note = Instantiate(goNote, tfNoteAppear[dfjk].position, Quaternion.identity);
-                //t_note.transform.SetParent(this.transform);
-                theTimingManager.boxNoteList.Add(t_note);
-
-                if(dfjk == 0)
+                if (dfjk >= 4)
                 {
                     GameObject t_noteSP = ObjectPool.instance.noteQueueSP.Dequeue();
-                    t_noteSP.transform.position = tfNoteAppearSP[0].position;
-                    t_noteSP.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-                    t_noteSP.SetActive(true);                
-                    //theTimingManager.boxNoteList.Add(t_noteSP);
-                }
-
-                if (dfjk == 1)
-                {
-                    GameObject t_noteSP = ObjectPool.instance.noteQueueSP.Dequeue();
-                    t_noteSP.transform.position = tfNoteAppearSP[1].position;
+                    t_noteSP.transform.position = tfNoteAppearSP[dfjk - 4].position;
                     t_noteSP.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                     t_noteSP.SetActive(true);
-                    //theTimingManager.boxNoteList.Add(t_noteSP);
+                    theTimingManager.boxNoteListSP.Add(t_noteSP);
                 }
+                else
+                {
+                    GameObject t_note = ObjectPool.instance.noteQueue.Dequeue();
+                    t_note.transform.position = tfNoteAppear[dfjk].position;
+                    t_note.SetActive(true);
+                    //GameObject t_note = Instantiate(goNote, tfNoteAppear[dfjk].position, Quaternion.identity);
+                    //t_note.transform.SetParent(this.transform);
+                    theTimingManager.boxNoteList.Add(t_note);
+                }            
 
                 idx++;
                 dfjk++;
-                if (dfjk >= tfNoteAppear.Length)
+                if (dfjk >= tfNoteAppear.Length + tfNoteAppearSP.Length)
                 {
                     dfjk = 0;
                 }
@@ -96,11 +89,11 @@ public class NoteManager : MonoBehaviour
         {
             if (collision.GetComponent<NoteSP>().GetNoteFlag())
             {
-                //theEffectManager.JudgementHitEffect(3);
-                //theComboManager.ResetCombo();
+                theEffectManager.JudgementHitEffect(3);
+                theComboManager.ResetCombo();
             }
 
-            //theTimingManager.boxNoteList.Remove(collision.gameObject);
+            theTimingManager.boxNoteListSP.Remove(collision.gameObject);
             ObjectPool.instance.noteQueueSP.Enqueue(collision.gameObject);
             collision.gameObject.SetActive(false);
 

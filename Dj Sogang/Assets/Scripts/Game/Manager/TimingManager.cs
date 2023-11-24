@@ -5,10 +5,15 @@ using UnityEngine;
 public class TimingManager : MonoBehaviour
 {
     public List<GameObject> boxNoteList = new List<GameObject> ();
+    public List<GameObject> boxNoteListSP = new List<GameObject>();
 
     [SerializeField] RectTransform[] Center = null;
     [SerializeField] RectTransform[] timingRect = null;
     [SerializeField] RectTransform[] noteBox = null;
+
+    [SerializeField] RectTransform[] timingRectSP = null;
+    [SerializeField] RectTransform[] noteBoxSP = null;
+
     Vector2[] timingBoxs = null;
     Vector2[] timingBoxsX = null;
 
@@ -43,80 +48,133 @@ public class TimingManager : MonoBehaviour
 
     public void CheckTiming(KeyCode KC)
     {
-        for(int i = 0;i < boxNoteList.Count;i++)
+        if(KC == KeyCode.D || KC == KeyCode.F || KC == KeyCode.J || KC == KeyCode.K)
         {
-            float t_notePosY = boxNoteList[i].transform.localPosition.y;
-            float t_notePosX = boxNoteList[i].transform.localPosition.x;
-
-
-            if (KC == KeyCode.D && timingBoxsX[0].x <= t_notePosX && t_notePosX <= timingBoxsX[0].y)
+            for (int i = 0; i < boxNoteList.Count; i++)
             {
-                for (int x = 0; x < timingBoxs.Length; x++)
-                {
-                    if (timingBoxs[x].x <= t_notePosY && t_notePosY <= timingBoxs[x].y)
-                    {
-                        boxNoteList[i].GetComponent<Note>().HideNote();
-                        theEffect.NoteHitEffect(0);
-                        boxNoteList.RemoveAt(i);
-                        theEffect.JudgementHitEffect(x);
+                float t_notePosY = boxNoteList[i].transform.localPosition.y;
+                float t_notePosX = boxNoteList[i].transform.localPosition.x;
 
-                        theScoreManager.IncreaseScore(x);
-                        return;
+
+                if (KC == KeyCode.D && timingBoxsX[0].x <= t_notePosX && t_notePosX <= timingBoxsX[0].y)
+                {
+                    for (int x = 0; x < timingBoxs.Length; x++)
+                    {
+                        if (timingBoxs[x].x <= t_notePosY && t_notePosY <= timingBoxs[x].y)
+                        {
+                            boxNoteList[i].GetComponent<Note>().HideNote();
+                            theEffect.NoteHitEffect(0);
+                            boxNoteList.RemoveAt(i);
+                            theEffect.JudgementHitEffect(x);
+
+                            theScoreManager.IncreaseScore(x);
+                            return;
+                        }
+                    }
+                }
+                else if (KC == KeyCode.F && timingBoxsX[1].x <= t_notePosX && t_notePosX <= timingBoxsX[1].y)
+                {
+                    for (int x = 0; x < timingBoxs.Length; x++)
+                    {
+                        if (timingBoxs[x].x <= t_notePosY && t_notePosY <= timingBoxs[x].y)
+                        {
+                            boxNoteList[i].GetComponent<Note>().HideNote();
+                            theEffect.NoteHitEffect(1);
+                            boxNoteList.RemoveAt(i);
+                            theEffect.JudgementHitEffect(x);
+
+                            theScoreManager.IncreaseScore(x);
+                            return;
+                        }
+                    }
+                }
+                else if (KC == KeyCode.J && timingBoxsX[2].x <= t_notePosX && t_notePosX <= timingBoxsX[2].y)
+                {
+                    for (int x = 0; x < timingBoxs.Length; x++)
+                    {
+                        if (timingBoxs[x].x <= t_notePosY && t_notePosY <= timingBoxs[x].y)
+                        {
+                            boxNoteList[i].GetComponent<Note>().HideNote();
+                            theEffect.NoteHitEffect(2);
+                            boxNoteList.RemoveAt(i);
+                            theEffect.JudgementHitEffect(x);
+
+                            theScoreManager.IncreaseScore(x);
+                            return;
+                        }
+                    }
+                }
+                else if (KC == KeyCode.K && timingBoxsX[3].x <= t_notePosX && t_notePosX <= timingBoxsX[3].y)
+                {
+                    for (int x = 0; x < timingBoxs.Length; x++)
+                    {
+                        if (timingBoxs[x].x <= t_notePosY && t_notePosY <= timingBoxs[x].y)
+                        {
+                            boxNoteList[i].GetComponent<Note>().HideNote();
+                            theEffect.NoteHitEffect(3);
+                            boxNoteList.RemoveAt(i);
+                            theEffect.JudgementHitEffect(x);
+
+                            theScoreManager.IncreaseScore(x);
+                            return;
+                        }
                     }
                 }
             }
-            else if (KC == KeyCode.F && timingBoxsX[1].x <= t_notePosX && t_notePosX <= timingBoxsX[1].y)
-            {
-                for (int x = 0; x < timingBoxs.Length; x++)
-                {
-                    if (timingBoxs[x].x <= t_notePosY && t_notePosY <= timingBoxs[x].y)
-                    {
-                        boxNoteList[i].GetComponent<Note>().HideNote();
-                        theEffect.NoteHitEffect(1);
-                        boxNoteList.RemoveAt(i);
-                        theEffect.JudgementHitEffect(x);
-
-                        theScoreManager.IncreaseScore(x);
-                        return;
-                    }
-                }
-            }
-            else if (KC == KeyCode.J && timingBoxsX[2].x <= t_notePosX && t_notePosX <= timingBoxsX[2].y)
-            {
-                for (int x = 0; x < timingBoxs.Length; x++)
-                {
-                    if (timingBoxs[x].x <= t_notePosY && t_notePosY <= timingBoxs[x].y)
-                    {
-                        boxNoteList[i].GetComponent<Note>().HideNote();
-                        theEffect.NoteHitEffect(2);
-                        boxNoteList.RemoveAt(i);
-                        theEffect.JudgementHitEffect(x);
-
-                        theScoreManager.IncreaseScore(x);
-                        return;
-                    }
-                }
-            }
-            else if (KC == KeyCode.K && timingBoxsX[3].x <= t_notePosX && t_notePosX <= timingBoxsX[3].y)
-            {
-                for (int x = 0; x < timingBoxs.Length; x++)
-                {
-                    if (timingBoxs[x].x <= t_notePosY && t_notePosY <= timingBoxs[x].y)
-                    {
-                        boxNoteList[i].GetComponent<Note>().HideNote();
-                        theEffect.NoteHitEffect(3);
-                        boxNoteList.RemoveAt(i);
-                        theEffect.JudgementHitEffect(x);
-
-                        theScoreManager.IncreaseScore(x);
-                        return;
-                    }
-                }
-            }
-            
         }
 
-        theComboManager.ResetCombo();
-        theEffect.JudgementHitEffect(3);
+        else
+        {
+            for (int i = 0; i < boxNoteListSP.Count; i++)
+            {      
+                float t_noteScale = boxNoteListSP[i].transform.localScale.x;
+                float t_notePosX = boxNoteListSP[i].transform.localPosition.x;
+
+
+                if (KC == KeyCode.S && noteBoxSP[0].localPosition.x + 1 >= t_notePosX && noteBoxSP[0].localPosition.x - 1 <= t_notePosX)
+                {
+                    int p = timingRectSP.Length / 2 - 1;
+                    int q = timingRectSP.Length / 2;
+                    for (int x = 0; x < timingRectSP.Length / 2; x++)
+                    {
+                        if (t_noteScale >= timingRectSP[p].localScale.x && t_noteScale <= timingRectSP[q].localScale.x)
+                        {
+                            boxNoteListSP[i].GetComponent<NoteSP>().HideNote();
+                            theEffect.NoteHitEffect(4);
+                            boxNoteListSP.RemoveAt(i);
+                            theEffect.JudgementHitEffect(x);
+
+                            theScoreManager.IncreaseScore(x);
+                            return;
+                        }
+                        p--;
+                        q++;
+                    }
+                }
+                else if (KC == KeyCode.L && noteBoxSP[1].localPosition.x + 1 >= t_notePosX && noteBoxSP[1].localPosition.x - 1 <= t_notePosX)
+                {
+                    int p = timingRectSP.Length / 2 - 1;
+                    int q = timingRectSP.Length / 2;
+                    for (int x = 0; x < timingRectSP.Length / 2; x++)
+                    {
+                        if (t_noteScale >= timingRectSP[p].localScale.x && t_noteScale <= timingRectSP[q].localScale.x)
+                        {
+                            boxNoteListSP[i].GetComponent<NoteSP>().HideNote();
+                            theEffect.NoteHitEffect(5);
+                            boxNoteListSP.RemoveAt(i);
+                            theEffect.JudgementHitEffect(x);
+
+                            theScoreManager.IncreaseScore(x);
+                            return;
+                        }
+                        p--;
+                        q++;
+                    }
+                }
+            }
+        }
+
+        //theComboManager.ResetCombo();
+       // theEffect.JudgementHitEffect(3);
     }
 }
