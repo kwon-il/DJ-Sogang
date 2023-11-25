@@ -18,7 +18,7 @@ public class NoteManager : MonoBehaviour
     string[] timesALL = null;
     string[][] timesALLt = null;
 
-
+    HpManager theHpManager;
     TimingManager theTimingManager;
     EffectManager theEffectManager;
     ComboManager theComboManager;
@@ -27,6 +27,7 @@ public class NoteManager : MonoBehaviour
         theEffectManager = FindObjectOfType<EffectManager>();
         theTimingManager = GetComponent<TimingManager>();
         theComboManager = FindObjectOfType<ComboManager>();
+        theHpManager = FindObjectOfType<HpManager>();
 
 
         timesALL = noteTimeNEW.text.Split("\n");
@@ -92,6 +93,8 @@ public class NoteManager : MonoBehaviour
             ObjectPool.instance.noteQueue.Enqueue(collision.gameObject);
             collision.gameObject.SetActive(false);
 
+            theHpManager.DecreaseHp(10);
+
             //Destroy(collision.gameObject);
         }
 
@@ -106,6 +109,8 @@ public class NoteManager : MonoBehaviour
             theTimingManager.boxNoteListSP.Remove(collision.gameObject);
             ObjectPool.instance.noteQueueSP.Enqueue(collision.gameObject);
             collision.gameObject.SetActive(false);
+
+            theHpManager.DecreaseHp(10);
 
             //Destroy(collision.gameObject);
         }

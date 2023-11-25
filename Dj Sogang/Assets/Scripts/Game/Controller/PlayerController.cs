@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     TimingManager theTimingManager;
+    HpManager theHpManager;
     Color[] color = new Color[6];
       
 
@@ -14,9 +15,9 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         theTimingManager = FindObjectOfType<TimingManager>();
-        
+        theHpManager = FindObjectOfType<HpManager>();
 
-        for(int i = 0; i < contain.Length; i++)
+        for (int i = 0; i < contain.Length; i++)
         {
             color[i] = contain[i].GetComponent<Image>().color;
         }
@@ -111,9 +112,6 @@ public class PlayerController : MonoBehaviour
             color[5].a = 1.0f;
             contain[5].GetComponent<Image>().color = color[5];
         }
-
-
-
 
     }
 }
