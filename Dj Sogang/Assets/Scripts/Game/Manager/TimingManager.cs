@@ -7,9 +7,12 @@ public class TimingManager : MonoBehaviour
     public List<GameObject> boxNoteList = new List<GameObject> ();
     public List<GameObject> boxNoteListSP = new List<GameObject>();
 
+    public int[] judgementRecord = new int[4];
+
     [SerializeField] RectTransform[] Center = null;
     [SerializeField] RectTransform[] timingRect = null;
     [SerializeField] RectTransform[] noteBox = null;
+    [SerializeField] float[] weight = null;
 
     [SerializeField] RectTransform[] timingRectSP = null;
     [SerializeField] RectTransform[] noteBoxSP = null;
@@ -20,6 +23,7 @@ public class TimingManager : MonoBehaviour
     EffectManager theEffect;
     ScoreManager theScoreManager;
     ComboManager theComboManager;
+    HpManager theHpManager;
 
 
     // Start is called before the first frame update
@@ -28,6 +32,7 @@ public class TimingManager : MonoBehaviour
         theEffect = FindObjectOfType<EffectManager>();
         theScoreManager = FindObjectOfType<ScoreManager>();
         theComboManager =  FindObjectOfType<ComboManager>();
+        theHpManager = FindObjectOfType<HpManager>();
 
         timingBoxs = new Vector2[timingRect.Length];
 
@@ -67,6 +72,8 @@ public class TimingManager : MonoBehaviour
                             boxNoteList.RemoveAt(i);
                             theEffect.JudgementHitEffect(x);
 
+                            theHpManager.IncreaseHp((int)(10 * weight[x]));
+                            judgementRecord[x]++;
                             theScoreManager.IncreaseScore(x);
                             return;
                         }
@@ -83,6 +90,8 @@ public class TimingManager : MonoBehaviour
                             boxNoteList.RemoveAt(i);
                             theEffect.JudgementHitEffect(x);
 
+                            theHpManager.IncreaseHp((int)(10 * weight[x]));
+                            judgementRecord[x]++;
                             theScoreManager.IncreaseScore(x);
                             return;
                         }
@@ -99,6 +108,8 @@ public class TimingManager : MonoBehaviour
                             boxNoteList.RemoveAt(i);
                             theEffect.JudgementHitEffect(x);
 
+                            theHpManager.IncreaseHp((int)(10 * weight[x]));
+                            judgementRecord[x]++;
                             theScoreManager.IncreaseScore(x);
                             return;
                         }
@@ -115,6 +126,8 @@ public class TimingManager : MonoBehaviour
                             boxNoteList.RemoveAt(i);
                             theEffect.JudgementHitEffect(x);
 
+                            theHpManager.IncreaseHp((int)(10 * weight[x]));
+                            judgementRecord[x]++;
                             theScoreManager.IncreaseScore(x);
                             return;
                         }
@@ -144,6 +157,8 @@ public class TimingManager : MonoBehaviour
                             boxNoteListSP.RemoveAt(i);
                             theEffect.JudgementHitEffect(x);
 
+                            theHpManager.IncreaseHp((int)(10 * weight[x]));
+                            judgementRecord[x]++;
                             theScoreManager.IncreaseScore(x);
                             return;
                         }
@@ -164,6 +179,8 @@ public class TimingManager : MonoBehaviour
                             boxNoteListSP.RemoveAt(i);
                             theEffect.JudgementHitEffect(x);
 
+                            theHpManager.IncreaseHp((int)(10 * weight[x]));
+                            judgementRecord[x]++;
                             theScoreManager.IncreaseScore(x);
                             return;
                         }
@@ -176,5 +193,10 @@ public class TimingManager : MonoBehaviour
 
         //theComboManager.ResetCombo();
        // theEffect.JudgementHitEffect(3);
+    }
+
+    public int[] GetJudgementRecord()
+    {
+        return judgementRecord;
     }
 }
