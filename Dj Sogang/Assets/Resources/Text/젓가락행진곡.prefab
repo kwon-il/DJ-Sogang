@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4110672694646644982}
   - component: {fileID: 9024146047303258240}
   m_Layer: 5
-  m_Name: "\uBE44\uC2A4\uD2B8\uC544\uB984\uB2E4\uC6B4\uBC24\uC774\uC57C"
+  m_Name: "\uC813\uAC00\uB77D\uD589\uC9C4\uACE1"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,4 +78,4 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC544\uB984\uB2E4\uC6B4 \uBC24\uC774\uC57C\n\uBE44\uC2A4\uD2B8"
+  m_Text: "\uC813\uAC00\uB77D\uD589\uC9C4\uACE1\n\uBCA0\uD1A0\uBCA4"

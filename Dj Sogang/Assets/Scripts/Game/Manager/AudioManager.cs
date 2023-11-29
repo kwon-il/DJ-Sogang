@@ -13,7 +13,7 @@ public class AudioManager : MonoBehaviour
 
     public void audioPlay()
     {
-        myAudio.Play(100000);
+        //myAudio.Play(100000);
     }
 
     public void audioStop()

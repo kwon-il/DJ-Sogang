@@ -206,7 +206,7 @@ void LoadSelectedMusicScene()
         // AudioClip의 이름을 사용하여 동일한 이름의 씬을 로드합니다.
         // 프로젝트의 구조와 명명 규칙에 따라 적절히 수정하십시오.
         GlobalData.musicName = selectedTrack.name; 
-        SceneManager.LoadScene("Play");
+        SceneManager.LoadScene("Game");
     }
     else
     {

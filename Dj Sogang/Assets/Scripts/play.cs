@@ -1,4 +1,4 @@
-using System.Collections;
+    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,14 +15,8 @@ public class play : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {   
-        GameObject canvasObject = GameObject.Find("Canvas"); 
+        GameObject canvasObject = GameObject.Find("AudioManager"); 
         audioSource = canvasObject.GetComponent<AudioSource>();
-
-        if (audioSource == null)
-        {
-            audioSource = canvasObject.AddComponent<AudioSource>();
-            Debug.Log("AudioSource가 Canvas에 추가되었습니다.");
-        }
 
         //audioSource.outputAudioMixerGroup = mixerGroup;
         Debug.Log("Mixer Group assigned: " + audioSource.outputAudioMixerGroup);
@@ -42,8 +36,7 @@ public class play : MonoBehaviour
         {
             Debug.LogError("Image 컴포넌트 또는 씬 이미지를 찾을 수 없습니다.");
         }
-        SetImageToFillCanvas(canvasImage);
-        StartCoroutine(PlayMusicWithDelay(3.0f));
+        StartCoroutine(PlayMusicWithDelay(2.25f));
     }
 
     // Update is called once per frame
@@ -51,15 +44,7 @@ public class play : MonoBehaviour
     {
         // 필요한 경우 업데이트 로직
     }
-    void SetImageToFillCanvas(Image image)
-    {
-        RectTransform rt = image.GetComponent<RectTransform>();
-        rt.anchorMin = new Vector2(0, 0);
-        rt.anchorMax = new Vector2(1, 1);
-        rt.pivot = new Vector2(0.5f, 0.5f); // 중앙을 기준점으로 설정
-        rt.offsetMin = Vector2.zero; // 왼쪽 아래 구석
-        rt.offsetMax = Vector2.zero; // 오른쪽 위 구석
-    }
+
     IEnumerator PlayMusicWithDelay(float delay)
     {
         // 지정된 시간(초) 동안 대기
