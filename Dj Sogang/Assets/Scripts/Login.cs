@@ -5,14 +5,10 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
-public class GoogleData
-{
-    public string order, result, msg, value;
-}
-
 public class Login : MonoBehaviour
 {
-    const string URL = "https://script.google.com/macros/s/AKfycbweZuLIWLFQTAMtVHXjPbnJKR7HBoH-BTJ17cY9wGXhHlE-XVSNeL1axqHE-WgM8MUENQ/exec";
+    GoogleData myData = new GoogleData();
+    string URL = GlobalData.GoogleScriptUrl;
     string id, pass;
 
     public GoogleData GD;
@@ -22,9 +18,6 @@ public class Login : MonoBehaviour
     public Button loginButton;
     public Button RegisterButton; // ���� �̸� ����
     public Text loginStatusText;
-
-    //private string correctUsername = "your_username"; // ���� ����� �̸����� ����
-    //private string correctPassword = "your_password"; // ���� ��й�ȣ�� ����
 
     void Update()
 {
@@ -82,16 +75,6 @@ public class Login : MonoBehaviour
         StartCoroutine(Post(form));
     }
 
-    IEnumerator Post(WWWForm form)
-    {
-        using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // �ݵ�� using�� ����Ѵ�
-        {
-            yield return www.SendWebRequest();
-            if (www.isDone) Response(www.downloadHandler.text);
-            else print("���� ������ �����ϴ�.");
-        }
-    }
-
     void Response(string json)
     {
         
@@ -114,4 +97,13 @@ public class Login : MonoBehaviour
         }
     }
 
+    IEnumerator Post(WWWForm form)
+    {
+        using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // �ݵ�� using�� ����Ѵ�
+        {
+            yield return www.SendWebRequest();
+            if (www.isDone) Response(www.downloadHandler.text);
+            else print("���� ������ �����ϴ�.");
+        }
+    }    
 }

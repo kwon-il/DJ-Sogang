@@ -29,7 +29,7 @@ public class play : MonoBehaviour
         {
             canvasImage.sprite = sceneImage;
             // 이미지를 캔버스 크기에 맞게 조정하고 싶다면 아래 코드를 사용합니다
-            canvasImage.SetNativeSize(); // 원본 크기를 유지하면서 설정
+            //canvasImage.SetNativeSize(); // 원본 크기를 유지하면서 설정
             // 이미지가 너무 크거나 작을 수 있으니, 캔버스 크기에 맞게 스케일 조정이 필요할 수 있습니다
         }
         else
