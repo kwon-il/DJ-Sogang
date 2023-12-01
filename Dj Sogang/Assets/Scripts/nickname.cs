@@ -37,13 +37,13 @@ public class nickname : MonoBehaviour
 
     void ProcessNicknameResponse(string jsonResponse)
     {   
-        Debug.Log("Raw JSON Response: " + jsonResponse);
+        //Debug.Log("Raw JSON Response: " + jsonResponse);
 
         GoogleData responseData = JsonUtility.FromJson<GoogleData>(jsonResponse);
 
-        print(responseData.msg);
-        print(responseData.result);
-        print(responseData.nickname);
+        //print(responseData.msg);
+        //print(responseData.result);
+        //print(responseData.nickname);
         if (responseData.result == "OK")
         {
             // Handle successful response

@@ -16,6 +16,7 @@ public class musicscroll : MonoBehaviour
     private int selectedIndex = 0; // 현재 선택된 아이템의 인덱스
     public Image mainSceneImage; // Inspector에서 메인 씬의 Image UI 요소 할당
     public AudioSource audioSource;
+
     void Start()
     {   
         GameObject canvasObject = GameObject.Find("Canvas"); 
@@ -213,4 +214,7 @@ void LoadSelectedMusicScene()
         Debug.LogError("선택된 트랙이 null이거나 해당 트랙에 대한 씬을 찾을 수 없습니다: " + items[selectedIndex].name);
     }
 }
+
+
+
 }

@@ -8,7 +8,8 @@ public class idcheck : MonoBehaviour
 
     void Start()
     {
-        UpdateNicknameText();
+        GlobalData.OnNicknameChanged += UpdateNicknameText; // 이벤트 구독
+        UpdateNicknameText(GlobalData.nickname); // 초기 텍스트 업데이트
     }
 
     void Update()
@@ -16,23 +17,24 @@ public class idcheck : MonoBehaviour
         // Check if the nickname has changed
         if (GlobalData.nickname != lastNickname)
         {
-            UpdateNicknameText();
+            UpdateNicknameText(GlobalData.nickname);
         }
     }
 
-    void UpdateNicknameText()
+    void UpdateNicknameText(string newNickname)
     {
-        // Check if the text component is assigned
         if (idText != null)
         {
-            // Assign the myID value to the text component
-            idText.text = GlobalData.nickname;
-            lastNickname = GlobalData.nickname; // Update the last nickname
-            print(idText.text);
+            idText.text = newNickname;
         }
         else
         {
-            Debug.LogError("Text component not assigned.");
+            Debug.LogError("Text component not assigned."); 
         }
+    }
+    void OnDestroy()
+    {
+        // 이벤트 구독 해제
+        GlobalData.OnNicknameChanged -= UpdateNicknameText;
     }
 }
