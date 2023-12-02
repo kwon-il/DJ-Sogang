@@ -55,7 +55,7 @@ public class HpManager : MonoBehaviour
     }
     void playResult()
     {
-        theResult.ShowResult(isDead);
+        StartCoroutine(theResult.ShowResult(isDead));
     }
 
     public bool IsDead()

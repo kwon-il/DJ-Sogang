@@ -97,7 +97,7 @@ public class NoteManager : MonoBehaviour
 
     void playResult()
     {
-        theResult.ShowResult(theHpManager.isDead);
+        StartCoroutine(theResult.ShowResult(theHpManager.isDead));
     }
     private void DelayedFunction()
     {
