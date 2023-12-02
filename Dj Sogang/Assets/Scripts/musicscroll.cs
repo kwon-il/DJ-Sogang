@@ -22,9 +22,22 @@ public class musicscroll : MonoBehaviour
         GameObject canvasObject = GameObject.Find("Canvas"); 
         audioSource = canvasObject.GetComponent<AudioSource>();
         LoadMusic();
+        if (!string.IsNullOrEmpty(GlobalData.musicName))
+        {
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (items[i].name == GlobalData.musicName)
+                {
+                    selectedIndex = i;
+                    break;
+                }
+            }
+        }
+
         if (items.Count > 0)
         {
-            HighlightItem(); // 시작 시 첫 번째 아이템을 강조합니다.
+            HighlightItem(); // Highlight the item at startup.
+            ScrollToSelected();
         }
     }
 
