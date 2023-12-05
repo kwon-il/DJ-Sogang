@@ -17,6 +17,20 @@ public class changesome : MonoBehaviour
     void Start()
     {
         inputWindow.SetActive(false);
+            // inputWindow의 Canvas 설정
+    Canvas canvas = inputWindow.GetComponent<Canvas>();
+    if (canvas == null) {
+        canvas = inputWindow.AddComponent<Canvas>();
+    }
+    canvas.renderMode = RenderMode.ScreenSpaceOverlay; // 항상 최상위에 표시
+    canvas.sortingOrder = 100; // 높은 순서 값
+
+    // Canvas Group 추가
+    CanvasGroup canvasGroup = inputWindow.GetComponent<CanvasGroup>();
+    if (canvasGroup == null) {
+        canvasGroup = inputWindow.AddComponent<CanvasGroup>();
+    }
+    canvasGroup.blocksRaycasts = true;
 
         // Modify submitButton listener to only handle submission
         submitButton.onClick.AddListener(SubmitNicknameChange);
