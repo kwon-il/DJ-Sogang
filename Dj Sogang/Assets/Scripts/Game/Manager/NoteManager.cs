@@ -18,6 +18,7 @@ public class NoteManager : MonoBehaviour
     [SerializeField] TextAsset noteTimeNEW = null;
     string[] timesALL = null;
     string[][] timesALLt = null;
+    string currentMusicName = GlobalData.musicName;
 
     HpManager theHpManager;
     TimingManager theTimingManager;
@@ -35,7 +36,11 @@ public class NoteManager : MonoBehaviour
         theResult = FindObjectOfType<Result>();
         theAudioManager = FindObjectOfType<AudioManager>();
 
-        timesALL = noteTimeNEW.text.Split("\n");
+
+        // Resources/Photo 폴더에서 씬 이름과 일치하는 이미지를 불러옵니다
+        TextAsset imsi = Resources.Load<TextAsset>("NoteTime/" + currentMusicName);
+
+        timesALL = imsi.text.Split("\n");
         timesALLt = new string[timesALL.Length][];
         for (int i = 0; i < timesALL.Length; i++) 
         {
@@ -52,38 +57,120 @@ public class NoteManager : MonoBehaviour
             currentTime += UnityEngine.Time.deltaTime;
 
             if (idx < timesALLt.Length)
-            {
-                if (int.Parse(timesALLt[idx][1]) == 5 || int.Parse(timesALLt[idx][1]) == 6)
+            { 
+                int temp = 0;
+                for(int i = 0; i < 5; i++)
                 {
-                    if (Double.Parse(timesALLt[idx][0]) + speedSP <= currentTime)
+                    if(int.Parse(timesALLt[idx][i + 1]) == 1)
                     {
-                        GameObject t_noteSP = ObjectPool.instance.noteQueueSP.Dequeue();
-                        int dfjk = int.Parse(timesALLt[idx][1]);
-                        //Debug.Log(timesALLt[idx][1]);
-                        t_noteSP.transform.position = tfNoteAppearSP[dfjk - 5].position;
-                        t_noteSP.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-                        t_noteSP.SetActive(true);
-                        theTimingManager.boxNoteListSP.Add(t_noteSP);
-
-                        idx++;
+                        temp++;
                     }
                 }
-                else
+                //Debug.Log("idx: "+idx+ "   temp: " + temp);
+                if(temp != 0)
                 {
-                    if (Double.Parse(timesALLt[idx][0]) + speed <= currentTime)
+                    if (int.Parse(timesALLt[idx][1]) == 1)
                     {
-                        GameObject t_note = ObjectPool.instance.noteQueue.Dequeue();
-                        int dfjk = int.Parse(timesALLt[idx][1]);
-                        //Debug.Log(timesALLt[idx][1]);
-                        t_note.transform.position = tfNoteAppear[dfjk - 1].position;
-                        t_note.SetActive(true);
-                        //GameObject t_note = Instantiate(goNote, tfNoteAppear[dfjk].position, Quaternion.identity);
-                        //t_note.transform.SetParent(this.transform);
-                        theTimingManager.boxNoteList.Add(t_note);
+                        if (Double.Parse(timesALLt[idx][0]) + speedSP <= currentTime)
+                        {
+                            GameObject t_noteSP = ObjectPool.instance.noteQueueSP.Dequeue();
+                            GameObject t_noteSP2 = ObjectPool.instance.noteQueueSP.Dequeue();
+                            //Debug.Log(timesALLt[idx][1]);
+                            t_noteSP.transform.position = tfNoteAppearSP[0].position;
+                            t_noteSP.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                            t_noteSP.SetActive(true);
+                            t_noteSP2.transform.position = tfNoteAppearSP[1].position;
+                            t_noteSP2.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                            t_noteSP2.SetActive(true);
+                            theTimingManager.boxNoteListSP.Add(t_noteSP);
+                            theTimingManager.boxNoteListSP.Add(t_noteSP2);
 
-                        idx++;
+                            temp--;
+                            if (temp == 0)
+                                idx++;
+                        }
+                    }
+                }             
+                if (temp != 0)
+                {
+                    if (int.Parse(timesALLt[idx][2]) == 1)
+                    {
+                        if (Double.Parse(timesALLt[idx][0]) + speed <= currentTime)
+                        {
+                            GameObject t_note = ObjectPool.instance.noteQueue.Dequeue();
+                            //Debug.Log(timesALLt[idx][1]);
+                            t_note.transform.position = tfNoteAppear[0].position;
+                            t_note.SetActive(true);
+                            //GameObject t_note = Instantiate(goNote, tfNoteAppear[dfjk].position, Quaternion.identity);
+                            //t_note.transform.SetParent(this.transform);
+                            theTimingManager.boxNoteList.Add(t_note);
+
+                            temp--;
+                            if (temp == 0)
+                                idx++;
+                        }
                     }
                 }
+                if (temp != 0)
+                {
+                    if (int.Parse(timesALLt[idx][3]) == 1)
+                    {
+                        if (Double.Parse(timesALLt[idx][0]) + speed <= currentTime)
+                        {
+                            GameObject t_note = ObjectPool.instance.noteQueue.Dequeue();
+                            //Debug.Log(timesALLt[idx][1]);
+                            t_note.transform.position = tfNoteAppear[1].position;
+                            t_note.SetActive(true);
+                            //GameObject t_note = Instantiate(goNote, tfNoteAppear[dfjk].position, Quaternion.identity);
+                            //t_note.transform.SetParent(this.transform);
+                            theTimingManager.boxNoteList.Add(t_note);
+
+                            temp--;
+                            if (temp == 0)
+                                idx++;
+                        }
+                    }
+                }
+                if (temp != 0)
+                {
+                    if (int.Parse(timesALLt[idx][4]) == 1)
+                    {
+                        if (Double.Parse(timesALLt[idx][0]) + speed <= currentTime)
+                        {
+                            GameObject t_note = ObjectPool.instance.noteQueue.Dequeue();
+                            //Debug.Log(timesALLt[idx][1]);
+                            t_note.transform.position = tfNoteAppear[2].position;
+                            t_note.SetActive(true);
+                            //GameObject t_note = Instantiate(goNote, tfNoteAppear[dfjk].position, Quaternion.identity);
+                            //t_note.transform.SetParent(this.transform);
+                            theTimingManager.boxNoteList.Add(t_note);
+
+                            temp--;
+                            if (temp == 0)
+                                idx++;
+                        }
+                    }
+                }
+                if (temp != 0)
+                {
+                    if (int.Parse(timesALLt[idx][5]) == 1)
+                    {
+                        if (Double.Parse(timesALLt[idx][0]) + speed <= currentTime)
+                        {
+                            GameObject t_note = ObjectPool.instance.noteQueue.Dequeue();
+                            //Debug.Log(timesALLt[idx][1]);
+                            t_note.transform.position = tfNoteAppear[3].position;
+                            t_note.SetActive(true);
+                            //GameObject t_note = Instantiate(goNote, tfNoteAppear[dfjk].position, Quaternion.identity);
+                            //t_note.transform.SetParent(this.transform);
+                            theTimingManager.boxNoteList.Add(t_note);
+
+                            temp--;
+                            if (temp == 0)
+                                idx++;
+                        }
+                    }
+                }                                
             }
 
             else

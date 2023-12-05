@@ -59,22 +59,19 @@ public class PlayerController : MonoBehaviour
 
             theTimingManager.CheckTiming(KeyCode.K);
         }
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.L))
         {
             ColorUtility.TryParseHtmlString("#4AE5F1", out color[4]);
             color[4].a = 1.0f;
             contain[4].GetComponent<Image>().color = color[4];
 
-            theTimingManager.CheckTiming(KeyCode.S);
-        }
-        if (Input.GetKeyDown(KeyCode.L))
-        {
             ColorUtility.TryParseHtmlString("#4AE5F1", out color[5]);
             color[5].a = 1.0f;
             contain[5].GetComponent<Image>().color = color[5];
 
-            theTimingManager.CheckTiming(KeyCode.L);
+            theTimingManager.CheckTiming(KeyCode.S);
         }
+
 
         if (Input.GetKeyUp(KeyCode.D))
         {
@@ -100,14 +97,12 @@ public class PlayerController : MonoBehaviour
             color[3].a = 0.8f;
             contain[3].GetComponent<Image>().color = color[3];
         }
-        if (Input.GetKeyUp(KeyCode.S))
+        if (Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.L))
         {
             ColorUtility.TryParseHtmlString("#FFFFFF", out color[4]);
             color[4].a = 1.0f;
             contain[4].GetComponent<Image>().color = color[4];
-        }
-        if (Input.GetKeyUp(KeyCode.L))
-        {
+
             ColorUtility.TryParseHtmlString("#FFFFFF", out color[5]);
             color[5].a = 1.0f;
             contain[5].GetComponent<Image>().color = color[5];

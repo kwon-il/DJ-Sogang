@@ -24,6 +24,7 @@ public class TimingManager : MonoBehaviour
     ScoreManager theScoreManager;
     ComboManager theComboManager;
     HpManager theHpManager;
+    AudioSource sound;
 
 
     // Start is called before the first frame update
@@ -33,6 +34,7 @@ public class TimingManager : MonoBehaviour
         theScoreManager = FindObjectOfType<ScoreManager>();
         theComboManager =  FindObjectOfType<ComboManager>();
         theHpManager = FindObjectOfType<HpManager>();
+        sound = GetComponent<AudioSource>();
 
         timingBoxs = new Vector2[timingRect.Length];
 
@@ -71,6 +73,7 @@ public class TimingManager : MonoBehaviour
                             theEffect.NoteHitEffect(0);
                             boxNoteList.RemoveAt(i);
                             theEffect.JudgementHitEffect(x);
+                            sound.Play();
 
                             theHpManager.IncreaseHp((int)(10 * weight[x]));
                             judgementRecord[x]++;
@@ -89,6 +92,7 @@ public class TimingManager : MonoBehaviour
                             theEffect.NoteHitEffect(1);
                             boxNoteList.RemoveAt(i);
                             theEffect.JudgementHitEffect(x);
+                            sound.Play();
 
                             theHpManager.IncreaseHp((int)(10 * weight[x]));
                             judgementRecord[x]++;
@@ -107,6 +111,7 @@ public class TimingManager : MonoBehaviour
                             theEffect.NoteHitEffect(2);
                             boxNoteList.RemoveAt(i);
                             theEffect.JudgementHitEffect(x);
+                            sound.Play();
 
                             theHpManager.IncreaseHp((int)(10 * weight[x]));
                             judgementRecord[x]++;
@@ -125,6 +130,7 @@ public class TimingManager : MonoBehaviour
                             theEffect.NoteHitEffect(3);
                             boxNoteList.RemoveAt(i);
                             theEffect.JudgementHitEffect(x);
+                            sound.Play();
 
                             theHpManager.IncreaseHp((int)(10 * weight[x]));
                             judgementRecord[x]++;
@@ -144,7 +150,7 @@ public class TimingManager : MonoBehaviour
                 float t_notePosX = boxNoteListSP[i].transform.localPosition.x;
 
 
-                if (KC == KeyCode.S && noteBoxSP[0].localPosition.x + 1 >= t_notePosX && noteBoxSP[0].localPosition.x - 1 <= t_notePosX)
+                if ((KC == KeyCode.S || KC == KeyCode.L) && noteBoxSP[0].localPosition.x + 1 >= t_notePosX && noteBoxSP[0].localPosition.x - 1 <= t_notePosX)
                 {
                     int p = timingRectSP.Length / 2 - 1;
                     int q = timingRectSP.Length / 2;
@@ -154,30 +160,10 @@ public class TimingManager : MonoBehaviour
                         {
                             boxNoteListSP[i].GetComponent<NoteSP>().HideNote();
                             theEffect.NoteHitEffect(4);
-                            boxNoteListSP.RemoveAt(i);
-                            theEffect.JudgementHitEffect(x);
-
-                            theHpManager.IncreaseHp((int)(10 * weight[x]));
-                            judgementRecord[x]++;
-                            theScoreManager.IncreaseScore(x);
-                            return;
-                        }
-                        p--;
-                        q++;
-                    }
-                }
-                else if (KC == KeyCode.L && noteBoxSP[1].localPosition.x + 1 >= t_notePosX && noteBoxSP[1].localPosition.x - 1 <= t_notePosX)
-                {
-                    int p = timingRectSP.Length / 2 - 1;
-                    int q = timingRectSP.Length / 2;
-                    for (int x = 0; x < timingRectSP.Length / 2; x++)
-                    {
-                        if (t_noteScale >= timingRectSP[p].localScale.x && t_noteScale <= timingRectSP[q].localScale.x)
-                        {
-                            boxNoteListSP[i].GetComponent<NoteSP>().HideNote();
                             theEffect.NoteHitEffect(5);
                             boxNoteListSP.RemoveAt(i);
                             theEffect.JudgementHitEffect(x);
+                            sound.Play();
 
                             theHpManager.IncreaseHp((int)(10 * weight[x]));
                             judgementRecord[x]++;
@@ -187,7 +173,7 @@ public class TimingManager : MonoBehaviour
                         p--;
                         q++;
                     }
-                }
+                }              
             }
         }
 
