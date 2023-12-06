@@ -12,15 +12,21 @@ public class musicscroll : MonoBehaviour
     public Transform contentPanel; // Inspector에서 Content GameObject 할당
     public float itemSpacing = 20f; // 아이템 간의 간격을 설정합니다.
     public ScrollRect scrollRect; // Inspector에서 ScrollRect를 할당합니다.
+    public ScrollRect levelRect;
     private List<GameObject> items = new List<GameObject>(); // 아이템들의 리스트
     private int selectedIndex = 0; // 현재 선택된 아이템의 인덱스
+    //private int levelIndex = 0; // 현재 선택된 level의 인덱스
     public Image mainSceneImage; // Inspector에서 메인 씬의 Image UI 요소 할당
     public AudioSource audioSource;
+    public GameObject Arrow; // level 을 표기할 화살표
+    public GameObject inputWindow;
+    
 
     void Start()
     {   
         GameObject canvasObject = GameObject.Find("Canvas"); 
         audioSource = canvasObject.GetComponent<AudioSource>();
+        inputWindow.SetActive(false);
         LoadMusic();
         if (!string.IsNullOrEmpty(GlobalData.musicName))
         {
@@ -81,6 +87,14 @@ public class musicscroll : MonoBehaviour
     if (Input.GetKeyDown(KeyCode.Tab))
     {
         StartCoroutine(PreviewMusic());
+    }
+    if (Input.GetKeyDown(KeyCode.LeftArrow))
+    {
+        DecreaseDifficulty();
+    }
+    else if (Input.GetKeyDown(KeyCode.RightArrow))
+    {
+        IncreaseDifficulty();
     }
 }
     
@@ -227,7 +241,53 @@ void LoadSelectedMusicScene()
         Debug.LogError("선택된 트랙이 null이거나 해당 트랙에 대한 씬을 찾을 수 없습니다: " + items[selectedIndex].name);
     }
 }
+void DecreaseDifficulty()
+{
+    // 'Easy'가 첫 번째 인덱스, 'Normal'이 두 번째, 'Hard'가 세 번째라고 가정
+    if (GlobalData.levelIndex > 0)
+    {
+        GlobalData.levelIndex--;
+    }
+    else
+    {
+        // 이미 'Easy'에 있다면 'Hard'로 이동
+        GlobalData.levelIndex = 2;
+    }
+    UpdateDifficultyDisplay();
+}
+void IncreaseDifficulty()
+{
+    // 'Easy'가 첫 번째 인덱스, 'Normal'이 두 번째, 'Hard'가 세 번째라고 가정
+    if (GlobalData.levelIndex < 2)
+    {
+        GlobalData.levelIndex++;
+    }
+    else
+    {
+        // 이미 'Hard'에 있다면 'Easy'로 이동
+        GlobalData.levelIndex = 0;
+    }
+    UpdateDifficultyDisplay();
+}
+void UpdateDifficultyDisplay()
+{
+    // 'level' ScrollRect 내에서 'arrow'의 x 위치를 설정합니다.
+    Vector2 newPosition = new Vector2();
+    switch (GlobalData.levelIndex)
+    {
+        case 0:
+            newPosition.x = -80f; // 'Easy'를 위한 x 위치
+            break;
+        case 1:
+            newPosition.x = 10f; // 'Normal'을 위한 x 위치
+            break;
+        case 2:
+            newPosition.x = 100f; // 'Hard'를 위한 x 위치
+            break;
+    }
+    newPosition.y = Arrow.GetComponent<RectTransform>().anchoredPosition.y; // y 위치를 유지합니다.
 
-
-
+    // 'arrow'의 RectTransform의 anchoredPosition을 업데이트합니다.
+    Arrow.GetComponent<RectTransform>().anchoredPosition = newPosition;
+}
 }

@@ -8,6 +8,7 @@ public class GlobalData : MonoBehaviour
      public static string myID="aa";
      public static int score;
      public static char rank;
+     public static int levelIndex=0;
 
 
      public static string _nickname;
