@@ -15,6 +15,7 @@ public class HpManager : MonoBehaviour
     Result theResult;
     Animator myAnim;
     NoteManager theNoteManager;
+    TimingManager theTimingManager;
     string animHp = "Hp";
 
     private void Start()
@@ -22,6 +23,7 @@ public class HpManager : MonoBehaviour
         myAnim = GetComponent<Animator>();
         theResult = FindObjectOfType<Result>();
         theNoteManager = FindObjectOfType<NoteManager>();
+        theTimingManager = GetComponent<TimingManager>();
     }
 
     public void DecreaseHp(int p_num)

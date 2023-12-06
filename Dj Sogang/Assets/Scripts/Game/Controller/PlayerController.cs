@@ -70,6 +70,7 @@ public class PlayerController : MonoBehaviour
             contain[5].GetComponent<Image>().color = color[5];
 
             theTimingManager.CheckTiming(KeyCode.S);
+            theTimingManager.CheckTiming(KeyCode.L);
         }
 
 
@@ -78,24 +79,48 @@ public class PlayerController : MonoBehaviour
             ColorUtility.TryParseHtmlString("#222222", out color[0]);
             color[0].a = 0.8f;
             contain[0].GetComponent<Image>().color = color[0];
+
+            if(theTimingManager.LongFLAG[0] == 1)
+            {
+                theTimingManager.LongFLAG[0] = 2;
+                theTimingManager.LongNoteList[0].GetComponent<Note>().tailColorDown();
+            }      
         }
         if (Input.GetKeyUp(KeyCode.F))
         {
             ColorUtility.TryParseHtmlString("#222222", out color[1]);
             color[1].a = 0.8f;
             contain[1].GetComponent<Image>().color = color[1];
+
+            if (theTimingManager.LongFLAG[1] == 1)
+            {
+                theTimingManager.LongFLAG[1] = 2;
+                theTimingManager.LongNoteList[1].GetComponent<Note>().tailColorDown();
+            }
         }
         if (Input.GetKeyUp(KeyCode.J))
         {
             ColorUtility.TryParseHtmlString("#222222", out color[2]);
             color[2].a = 0.8f;
             contain[2].GetComponent<Image>().color = color[2];
+
+            if (theTimingManager.LongFLAG[2] == 1)
+            {
+                theTimingManager.LongFLAG[2] = 2;
+                theTimingManager.LongNoteList[2].GetComponent<Note>().tailColorDown();
+            }
         }
         if (Input.GetKeyUp(KeyCode.K))
         {
             ColorUtility.TryParseHtmlString("#222222", out color[3]);
             color[3].a = 0.8f;
             contain[3].GetComponent<Image>().color = color[3];
+
+            if (theTimingManager.LongFLAG[3] == 1)
+            {
+                theTimingManager.LongFLAG[3] = 2;
+                theTimingManager.LongNoteList[3].GetComponent<Note>().tailColorDown();
+            }
         }
         if (Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.L))
         {

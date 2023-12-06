@@ -7,24 +7,27 @@ public class TimingManager : MonoBehaviour
     public List<GameObject> boxNoteList = new List<GameObject> ();
     public List<GameObject> boxNoteListSP = new List<GameObject>();
 
-    public int[] judgementRecord = new int[4];
+    public GameObject[] LongNoteList = new GameObject[4];
 
-    [SerializeField] RectTransform[] Center = null;
+    public int[] judgementRecord = new int[4];
+    public int[] LongFLAG = { 0, 0, 0, 0 };
+
+    [SerializeField] public RectTransform[] Center = null;
     [SerializeField] RectTransform[] timingRect = null;
     [SerializeField] RectTransform[] noteBox = null;
-    [SerializeField] float[] weight = null;
+    [SerializeField] public float[] weight = null;
 
     [SerializeField] RectTransform[] timingRectSP = null;
     [SerializeField] RectTransform[] noteBoxSP = null;
 
     Vector2[] timingBoxs = null;
-    Vector2[] timingBoxsX = null;
+    public Vector2[] timingBoxsX = null;
 
     EffectManager theEffect;
     ScoreManager theScoreManager;
     ComboManager theComboManager;
     HpManager theHpManager;
-    AudioSource sound;
+    public AudioSource sound;
 
 
     // Start is called before the first frame update
@@ -69,6 +72,13 @@ public class TimingManager : MonoBehaviour
                     {
                         if (timingBoxs[x].x <= t_notePosY && t_notePosY <= timingBoxs[x].y)
                         {
+                            if(boxNoteList[i].GetComponent<Note>().isTail())
+                            {
+                                LongFLAG[0] = 1;
+                                boxNoteList[i].GetComponent<Note>().tailColorUP();
+                                LongNoteList[0] = boxNoteList[i];
+                            }
+
                             boxNoteList[i].GetComponent<Note>().HideNote();
                             theEffect.NoteHitEffect(0);
                             boxNoteList.RemoveAt(i);
@@ -88,6 +98,13 @@ public class TimingManager : MonoBehaviour
                     {
                         if (timingBoxs[x].x <= t_notePosY && t_notePosY <= timingBoxs[x].y)
                         {
+                            if (boxNoteList[i].GetComponent<Note>().isTail())
+                            {
+                                LongFLAG[1] = 1;
+                                boxNoteList[i].GetComponent<Note>().tailColorUP();
+                                LongNoteList[1] = boxNoteList[i];
+                            }
+
                             boxNoteList[i].GetComponent<Note>().HideNote();
                             theEffect.NoteHitEffect(1);
                             boxNoteList.RemoveAt(i);
@@ -107,6 +124,13 @@ public class TimingManager : MonoBehaviour
                     {
                         if (timingBoxs[x].x <= t_notePosY && t_notePosY <= timingBoxs[x].y)
                         {
+                            if (boxNoteList[i].GetComponent<Note>().isTail())
+                            {
+                                LongFLAG[2] = 1;
+                                boxNoteList[i].GetComponent<Note>().tailColorUP();
+                                LongNoteList[2] = boxNoteList[i];
+                            }
+
                             boxNoteList[i].GetComponent<Note>().HideNote();
                             theEffect.NoteHitEffect(2);
                             boxNoteList.RemoveAt(i);
@@ -126,6 +150,13 @@ public class TimingManager : MonoBehaviour
                     {
                         if (timingBoxs[x].x <= t_notePosY && t_notePosY <= timingBoxs[x].y)
                         {
+                            if (boxNoteList[i].GetComponent<Note>().isTail())
+                            {
+                                LongFLAG[3] = 1;
+                                boxNoteList[i].GetComponent<Note>().tailColorUP();
+                                LongNoteList[3] = boxNoteList[i];
+                            }
+
                             boxNoteList[i].GetComponent<Note>().HideNote();
                             theEffect.NoteHitEffect(3);
                             boxNoteList.RemoveAt(i);
@@ -150,7 +181,7 @@ public class TimingManager : MonoBehaviour
                 float t_notePosX = boxNoteListSP[i].transform.localPosition.x;
 
 
-                if ((KC == KeyCode.S || KC == KeyCode.L) && noteBoxSP[0].localPosition.x + 1 >= t_notePosX && noteBoxSP[0].localPosition.x - 1 <= t_notePosX)
+                if (KC == KeyCode.S && noteBoxSP[0].localPosition.x + 1 >= t_notePosX && noteBoxSP[0].localPosition.x - 1 <= t_notePosX)
                 {
                     int p = timingRectSP.Length / 2 - 1;
                     int q = timingRectSP.Length / 2;
@@ -159,7 +190,30 @@ public class TimingManager : MonoBehaviour
                         if (t_noteScale >= timingRectSP[p].localScale.x && t_noteScale <= timingRectSP[q].localScale.x)
                         {
                             boxNoteListSP[i].GetComponent<NoteSP>().HideNote();
-                            theEffect.NoteHitEffect(4);
+                            theEffect.NoteHitEffect(4);    
+                            boxNoteListSP.RemoveAt(i);
+                            theEffect.JudgementHitEffect(x);
+                            sound.Play();
+
+                            theHpManager.IncreaseHp((int)(10 * weight[x]));
+                            judgementRecord[x]++;
+                            theScoreManager.IncreaseScore(x);
+                            return;
+                        }
+                        p--;
+                        q++;
+                    }
+                }
+
+                if (KC == KeyCode.L && noteBoxSP[1].localPosition.x + 1 >= t_notePosX && noteBoxSP[1].localPosition.x - 1 <= t_notePosX)
+                {
+                    int p = timingRectSP.Length / 2 - 1;
+                    int q = timingRectSP.Length / 2;
+                    for (int x = 0; x < timingRectSP.Length / 2; x++)
+                    {
+                        if (t_noteScale >= timingRectSP[p].localScale.x && t_noteScale <= timingRectSP[q].localScale.x)
+                        {
+                            boxNoteListSP[i].GetComponent<NoteSP>().HideNote();
                             theEffect.NoteHitEffect(5);
                             boxNoteListSP.RemoveAt(i);
                             theEffect.JudgementHitEffect(x);
@@ -173,7 +227,7 @@ public class TimingManager : MonoBehaviour
                         p--;
                         q++;
                     }
-                }              
+                }
             }
         }
 
