@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class NoteSP : MonoBehaviour
 {
+    float noteSPSpeed = 0.0f;
+
     UnityEngine.UI.Image noteImage;
 
     void OnEnable()
@@ -12,7 +14,22 @@ public class NoteSP : MonoBehaviour
         {
             noteImage = GetComponent<UnityEngine.UI.Image>();
         }
-            
+
+        int speedIDX = GlobalData.speedIndex;
+
+        if (speedIDX == 0)
+        {
+            noteSPSpeed = 0.3f;
+        }
+        else if (speedIDX == 1)
+        {
+            noteSPSpeed = 0.6f;
+        }
+        else
+        {
+            noteSPSpeed = 0.9f;
+        }
+
         noteImage.enabled = true;
     }
 
@@ -20,7 +37,7 @@ public class NoteSP : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.localScale -= new Vector3(0.4f, 0.4f, 0.4f) * UnityEngine.Time.deltaTime;
+        transform.localScale -= new Vector3(noteSPSpeed, noteSPSpeed, noteSPSpeed) * UnityEngine.Time.deltaTime;
     }
 
     public void HideNote()

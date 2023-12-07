@@ -4,14 +4,29 @@ using UnityEngine;
 
 public class Note : MonoBehaviour
 {
-    public float noteSpeed = 400;
+    float noteSpeed = 0;
 
     UnityEngine.UI.Image noteImage;
     UnityEngine.UI.Image tailImage;
 
     void OnEnable()
     {
-        if(noteImage == null)
+        int speedIDX = GlobalData.speedIndex;
+
+        if (speedIDX == 0)
+        {
+            noteSpeed = 300;
+        }
+        else if (speedIDX == 1)
+        {
+            noteSpeed = 600;
+        }
+        else
+        {
+            noteSpeed = 900;
+        }
+
+        if (noteImage == null)
             noteImage = GetComponent<UnityEngine.UI.Image>();
 
         Transform childTransform = transform.Find("tail");
