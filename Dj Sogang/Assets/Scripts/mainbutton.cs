@@ -10,4 +10,5 @@ public class mainbutton : MonoBehaviour
     public Button speedButton;
     public Button nicknameButton;
     public Button EnterButton;
+    public Button RankButton;
 }

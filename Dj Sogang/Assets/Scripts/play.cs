@@ -59,6 +59,16 @@ public class play : MonoBehaviour
             audioSource.clip = musicClip;
             audioSource.Play();
             Debug.Log("노래 재생: " + musicClip.name); // 노래의 이름을 출력
+            if(GlobalData.levelIndex==0){
+                Debug.Log("난이도 : Easy");
+            }
+            else if(GlobalData.levelIndex==1){
+                Debug.Log("난이도 : Normal");
+            }
+            else if(GlobalData.levelIndex==2){
+                Debug.Log("난이도 : Hard");
+            }
+            
         }
         else
         {
