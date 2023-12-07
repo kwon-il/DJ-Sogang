@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
+using UnityEngine.Networking;
 
 public class musicscroll : MonoBehaviour
 {
@@ -19,14 +20,17 @@ public class musicscroll : MonoBehaviour
     public Image mainSceneImage; // Inspector에서 메인 씬의 Image UI 요소 할당
     public AudioSource audioSource;
     public GameObject Arrow; // level 을 표기할 화살표
+    public GameObject RankWindow;
     public GameObject inputWindow;
-    
+    GoogleData myData = new GoogleData();
+    string URL = GlobalData.GoogleScriptUrl;
 
     void Start()
     {   
         GameObject canvasObject = GameObject.Find("Canvas"); 
         audioSource = canvasObject.GetComponent<AudioSource>();
         inputWindow.SetActive(false);
+        RankWindow.SetActive(false);
         LoadMusic();
         if (!string.IsNullOrEmpty(GlobalData.musicName))
         {
@@ -46,7 +50,6 @@ public class musicscroll : MonoBehaviour
             ScrollToSelected();
         }
     }
-
     void Update()
 {
     // 사용자의 키보드 입력을 확인합니다.
@@ -96,8 +99,12 @@ public class musicscroll : MonoBehaviour
     {
         IncreaseDifficulty();
     }
+    if (Input.GetKeyDown(KeyCode.F3))
+    {
+        RankWindow.SetActive(!RankWindow.activeSelf);
+        StartCoroutine(ViewRank());
+    }
 }
-    
     void LoadMusic()
     {
         AudioClip[] musicTracks = Resources.LoadAll<AudioClip>("Music");
@@ -210,7 +217,6 @@ public class musicscroll : MonoBehaviour
         
     }
     }
-
     void ScrollToSelected()
 {
     // scrollRect의 null 체크를 추가합니다.
@@ -224,8 +230,7 @@ public class musicscroll : MonoBehaviour
         Debug.LogError("ScrollRect가 할당되지 않았습니다.");
     }
 }
-
-void LoadSelectedMusicScene()
+    void LoadSelectedMusicScene()
 {
     // 선택된 음악의 이름을 가져옵니다.
     AudioClip selectedTrack = Resources.Load<AudioClip>("Music/" + items[selectedIndex].name);
@@ -241,6 +246,44 @@ void LoadSelectedMusicScene()
         Debug.LogError("선택된 트랙이 null이거나 해당 트랙에 대한 씬을 찾을 수 없습니다: " + items[selectedIndex].name);
     }
 }
+    IEnumerator ViewRank(){
+
+        WWWForm form = new WWWForm();
+        form.AddField("order", "viewrank");
+        form.AddField("id", "aa");
+        form.AddField("musicname", items[selectedIndex].name);
+
+        using (UnityWebRequest www = UnityWebRequest.Post(URL, form))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.isNetworkError || www.isHttpError)
+            {
+                Debug.LogError("Error: " + www.error);
+            }
+            else
+            {
+            GetRank(www.downloadHandler.text);
+            }
+        }
+    }
+    void GetRank(string jsonResponse)
+    {   
+            Debug.Log("RRaw JSON Response: " + jsonResponse);
+            GoogleData responseData = JsonUtility.FromJson<GoogleData>(jsonResponse);
+
+            if (responseData.result == "OK")
+            {
+                // Handle successful response
+                print(items[selectedIndex].name);
+
+            }
+            else
+            {
+                // Handle actual error response
+                Debug.LogError("Error: " + responseData.msg);
+            }
+    }
 void DecreaseDifficulty()
 {
     // 'Easy'가 첫 번째 인덱스, 'Normal'이 두 번째, 'Hard'가 세 번째라고 가정
