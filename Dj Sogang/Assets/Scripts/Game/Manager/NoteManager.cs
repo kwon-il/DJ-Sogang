@@ -17,6 +17,7 @@ public class NoteManager : MonoBehaviour
     double interval = 0.2d;
     int idx = 0;
     bool noteActive = true;
+    int END_FLAG = 0;
 
     [SerializeField] Transform[] tfNoteAppear = null;
     [SerializeField] Transform[] tfNoteAppearSP = null;
@@ -233,7 +234,6 @@ public class NoteManager : MonoBehaviour
 
                                 if(Double.Parse(timest[idx][2]) > 0)
                                 {
-
                                     tailImage = childTransform.GetComponent<UnityEngine.UI.Image>();
                                     tailImage.enabled = true;
                                     Vector3 currentScale = childTransform.transform.localScale;
@@ -369,8 +369,13 @@ public class NoteManager : MonoBehaviour
 
             else
             {
-                Invoke("playResult", 4);
-                noteActive = false;
+                if(END_FLAG == 0)
+                {
+                    Invoke("playResult", 4);
+                    END_FLAG = 1;
+                }
+                
+                //noteActive = false;
                 //theResult.ShowResult();
             }
         }     
@@ -378,8 +383,10 @@ public class NoteManager : MonoBehaviour
 
     void playResult()
     {
+        noteActive = false;
         StartCoroutine(theResult.ShowResult(theHpManager.isDead));
     }
+
     private void DelayedFunction()
     {
         Debug.Log("Ready");
