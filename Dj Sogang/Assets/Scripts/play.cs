@@ -17,6 +17,7 @@ public class play : MonoBehaviour
     {   
         GameObject canvasObject = GameObject.Find("AudioManager"); 
         audioSource = canvasObject.GetComponent<AudioSource>();
+        print(GlobalData.speedIndex);
 
         //audioSource.outputAudioMixerGroup = mixerGroup;
         Debug.Log("Mixer Group assigned: " + audioSource.outputAudioMixerGroup);

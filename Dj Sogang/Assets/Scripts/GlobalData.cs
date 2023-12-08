@@ -9,11 +9,13 @@ public class GlobalData : MonoBehaviour
      public static int score;
      public static char rank;
      public static int levelIndex = 1;
-     public static int speedIndex = 2;
+     public static int speedIndex = 1;
      public static string _nickname;
      public const string GoogleScriptUrl = "https://script.google.com/macros/s/AKfycbyF2zKwh7s5DxTYY6u-DpDcKqD-HQAHXLagCAXAXvrQDhQt7cnL03YJc8SbqAenOI-Qkg/exec";
      public delegate void NicknameChangedHandler(string newNickname);
+     public delegate void SpeedChangedHandler(int newspeed);
      public static event NicknameChangedHandler OnNicknameChanged;
+     public static event SpeedChangedHandler OnSpeedChanged;
      public static Dictionary<string, SongScore> songScores = new Dictionary<string, SongScore>();
 
 
