@@ -6,11 +6,14 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
 using UnityEngine.Networking;
+using System;
 
 public class musicscroll : MonoBehaviour
 {
     public GameObject itemPrefab; // Inspector에서 프리팹 할당
+    public GameObject rankPrefab;
     public Transform contentPanel; // Inspector에서 Content GameObject 할당
+    public Transform RankListPanel;
     public float itemSpacing = 20f; // 아이템 간의 간격을 설정합니다.
     public ScrollRect scrollRect; // Inspector에서 ScrollRect를 할당합니다.
     public ScrollRect levelRect;
@@ -32,6 +35,7 @@ public class musicscroll : MonoBehaviour
         inputWindow.SetActive(false);
         RankWindow.SetActive(false);
         LoadMusic();
+        StartCoroutine(ShowRank());
         if (!string.IsNullOrEmpty(GlobalData.musicName))
         {
             for (int i = 0; i < items.Count; i++)
@@ -102,9 +106,50 @@ public class musicscroll : MonoBehaviour
     if (Input.GetKeyDown(KeyCode.F3))
     {
         RankWindow.SetActive(!RankWindow.activeSelf);
+        scrollRect.gameObject.SetActive(!scrollRect.gameObject.activeSelf);
+    
         StartCoroutine(ViewRank());
     }
 }
+    IEnumerator ShowRank(){
+
+        AudioClip[] musicTracks = Resources.LoadAll<AudioClip>("Music");
+
+        foreach (var track in musicTracks)
+        {        
+            WWWForm form = new WWWForm();
+            form.AddField("order", "showrank");
+            form.AddField("id", "aa");
+            form.AddField("musicname", track.name);
+            using (UnityWebRequest www = UnityWebRequest.Post(URL, form))
+            {
+                yield return www.SendWebRequest();
+
+                if (www.isNetworkError || www.isHttpError)
+                {
+                    Debug.LogError("Error: " + www.error);
+                }
+                else
+                {
+                    //myrank(www.downloadHandler.text, track.name);
+                }
+            }       
+        } 
+    }
+    void myrank(string jsonResponse, string musicName)
+    {
+        Debug.Log("Raw JSON Response: " + jsonResponse);
+        GoogleData responseData = JsonUtility.FromJson<GoogleData>(jsonResponse);
+
+        if (responseData.result == "OK")
+        {
+            // Handle successful response
+            print(responseData.score);
+            print(responseData.rank);
+            GlobalData.songScores[musicName] = new GlobalData.SongScore(responseData.score, responseData.rank);
+            Debug.Log("Nickname received: " + GlobalData.nickname);
+        }
+    }
     void LoadMusic()
     {
         AudioClip[] musicTracks = Resources.LoadAll<AudioClip>("Music");
@@ -131,8 +176,7 @@ public class musicscroll : MonoBehaviour
             {
                 Debug.LogError("Image 컴포넌트 또는 사진이 로드되지 않았습니다: " + track.name);
             }
-
-            
+   
             GameObject textPrefab = Resources.Load<GameObject>("Text/" + track.name);
             if (textPrefab != null)
             {
@@ -250,7 +294,7 @@ public class musicscroll : MonoBehaviour
 
         WWWForm form = new WWWForm();
         form.AddField("order", "viewrank");
-        form.AddField("id", "aa");
+        //form.AddField("id", "aa");
         form.AddField("musicname", items[selectedIndex].name);
 
         using (UnityWebRequest www = UnityWebRequest.Post(URL, form))
@@ -263,27 +307,47 @@ public class musicscroll : MonoBehaviour
             }
             else
             {
-            GetRank(www.downloadHandler.text);
+                GetRank(www.downloadHandler.text);
             }
         }
     }
-    void GetRank(string jsonResponse)
-    {   
-            Debug.Log("RRaw JSON Response: " + jsonResponse);
-            GoogleData responseData = JsonUtility.FromJson<GoogleData>(jsonResponse);
+void GetRank(string jsonResponse)
+{   
+    Debug.Log("Raw JSON Response: " + jsonResponse);
+    GoogleData responseData = JsonUtility.FromJson<GoogleData>(jsonResponse);
+    Debug.Log("ResponseData: " + JsonUtility.ToJson(responseData));
 
-            if (responseData.result == "OK")
-            {
-                // Handle successful response
-                print(items[selectedIndex].name);
-
-            }
-            else
-            {
-                // Handle actual error response
-                Debug.LogError("Error: " + responseData.msg);
-            }
+    if (responseData == null) {
+        Debug.LogError("responseData is null.");
+        return;
     }
+    if (responseData.data == null) {
+        Debug.LogError("responseData.data is null.");
+        return;
+    }
+
+    float contentHeight = responseData.cnt * itemSpacing;
+    Debug.Log("responseData.cnt is " + responseData.cnt);
+    ((RectTransform)RankListPanel).sizeDelta = new Vector2(((RectTransform)RankListPanel).sizeDelta.x, contentHeight);
+
+    foreach (Transform child in RankListPanel) {
+        Destroy(child.gameObject);
+    }
+
+    // Create a prefab by repeating ranking information from JSON data
+    for (int i = 0; i < responseData.data.Length; i++) {
+        GameObject rankItem = Instantiate(rankPrefab, RankListPanel);
+
+        PlayerData playerData = responseData.data[i];
+        Debug.Log(playerData.id + playerData.score + playerData.rank);
+
+        rankItem.transform.Find("rnk").GetComponent<Text>().text = (i + 1).ToString();
+        rankItem.transform.Find("idin").GetComponent<Text>().text = playerData.id;
+        rankItem.transform.Find("scorein").GetComponent<Text>().text = playerData.score.ToString();
+        rankItem.transform.Find("rankin").GetComponent<Text>().text = playerData.rank;
+        // ...
+    }
+}
 void DecreaseDifficulty()
 {
     // 'Easy'가 첫 번째 인덱스, 'Normal'이 두 번째, 'Hard'가 세 번째라고 가정
