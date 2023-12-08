@@ -10,19 +10,27 @@ public class changesome : MonoBehaviour
     GoogleData myData = new GoogleData();
     string URL = GlobalData.GoogleScriptUrl;
     public GameObject inputWindow;
+    public GameObject speedWindow;
     public InputField nicknameInput;
+    public InputField speedInput;
+    public Button submitButtonn;
     public Button submitButton; 
     public Button exitButton;
+    public Button exitButtonn;
     public string tempname;
+    public string tempspeed;
     void Start()
     {
         inputWindow.SetActive(false);
+        speedWindow.SetActive(false);
 
         // Modify submitButton listener to only handle submission
         submitButton.onClick.AddListener(SubmitNicknameChange);
+        submitButtonn.onClick.AddListener(changespeed);
 
         // Add listener for exit button
         exitButton.onClick.AddListener(CloseInputWindow);
+        exitButtonn.onClick.AddListener(CloseSpeedWindow);
     }
 
     void Update()
@@ -32,11 +40,30 @@ public class changesome : MonoBehaviour
         {
             inputWindow.SetActive(!inputWindow.activeSelf);
         }
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+            speedWindow.SetActive(!speedWindow.activeSelf);
+        }
 
         // Check for ESC key to close the window
         if (Input.GetKeyDown(KeyCode.Escape) && inputWindow.activeSelf)
         {
             CloseInputWindow();
+        }
+        if (Input.GetKeyDown(KeyCode.Escape) && speedWindow.activeSelf)
+        {
+            CloseSpeedWindow();
+        }
+    }
+    void changespeed()
+    {
+        tempspeed = speedInput.text;
+        //print(tempspeed);
+        speedWindow.SetActive(false);
+        if (int.TryParse(speedInput.text, out int parsedSpeed))
+        {
+            GlobalData.speedIndex = parsedSpeed - 1;
+            //print(GlobalData.speedIndex);
         }
     }
     void SubmitNicknameChange()
@@ -98,4 +125,8 @@ public class changesome : MonoBehaviour
     {
         inputWindow.SetActive(false);
     }    
+    void CloseSpeedWindow()
+    {
+        speedWindow.SetActive(false);
+    }
 }
