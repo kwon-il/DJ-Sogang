@@ -27,6 +27,7 @@ public class TimingManager : MonoBehaviour
     ScoreManager theScoreManager;
     ComboManager theComboManager;
     HpManager theHpManager;
+    NoteManager theNoteManager;
     public AudioSource sound;
 
 
@@ -38,6 +39,7 @@ public class TimingManager : MonoBehaviour
         theComboManager =  FindObjectOfType<ComboManager>();
         theHpManager = FindObjectOfType<HpManager>();
         sound = GetComponent<AudioSource>();
+        theNoteManager = FindObjectOfType<NoteManager>();
 
         timingBoxs = new Vector2[timingRect.Length];
 
@@ -84,6 +86,7 @@ public class TimingManager : MonoBehaviour
                             boxNoteList.RemoveAt(i);
                             theEffect.JudgementHitEffect(x);
                             sound.Play();
+                            theNoteManager.noteHitAnim[0].SetTrigger(theNoteManager.noteHit);
 
                             theHpManager.IncreaseHp((int)(10 * weight[x]));
                             judgementRecord[x]++;
@@ -110,6 +113,7 @@ public class TimingManager : MonoBehaviour
                             boxNoteList.RemoveAt(i);
                             theEffect.JudgementHitEffect(x);
                             sound.Play();
+                            theNoteManager.noteHitAnim[1].SetTrigger(theNoteManager.noteHit);
 
                             theHpManager.IncreaseHp((int)(10 * weight[x]));
                             judgementRecord[x]++;
@@ -136,6 +140,7 @@ public class TimingManager : MonoBehaviour
                             boxNoteList.RemoveAt(i);
                             theEffect.JudgementHitEffect(x);
                             sound.Play();
+                            theNoteManager.noteHitAnim[2].SetTrigger(theNoteManager.noteHit);
 
                             theHpManager.IncreaseHp((int)(10 * weight[x]));
                             judgementRecord[x]++;
@@ -162,6 +167,7 @@ public class TimingManager : MonoBehaviour
                             boxNoteList.RemoveAt(i);
                             theEffect.JudgementHitEffect(x);
                             sound.Play();
+                            theNoteManager.noteHitAnim[3].SetTrigger(theNoteManager.noteHit);
 
                             theHpManager.IncreaseHp((int)(10 * weight[x]));
                             judgementRecord[x]++;

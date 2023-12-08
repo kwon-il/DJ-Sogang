@@ -5,10 +5,11 @@ using UnityEngine;
 public class GlobalData : MonoBehaviour
 {
      public static string musicName;
-     public static string myID="aa";
+     public static string myID="ff";
      public static int score;
      public static char rank;
-     public static int levelIndex=0;
+     public static int levelIndex = 1;
+     public static int speedIndex = 2;
      public static string _nickname;
      public const string GoogleScriptUrl = "https://script.google.com/macros/s/AKfycbyF2zKwh7s5DxTYY6u-DpDcKqD-HQAHXLagCAXAXvrQDhQt7cnL03YJc8SbqAenOI-Qkg/exec";
      public delegate void NicknameChangedHandler(string newNickname);

@@ -1154,6 +1154,7 @@ GameObject:
   - component: {fileID: 314232705}
   - component: {fileID: 314232707}
   - component: {fileID: 314232706}
+  - component: {fileID: 314232708}
   m_Layer: 5
   m_Name: PerfectRect
   m_TagString: Untagged
@@ -1218,6 +1219,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 314232704}
   m_CullTransparentMesh: 1
+--- !u!95 &314232708
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314232704}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b874c06f67319dc4c8b70825cbc86057, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &319697633
 GameObject:
   m_ObjectHideFlags: 0
@@ -2754,6 +2776,7 @@ GameObject:
   - component: {fileID: 649156073}
   - component: {fileID: 649156075}
   - component: {fileID: 649156074}
+  - component: {fileID: 649156076}
   m_Layer: 5
   m_Name: PerfectRect
   m_TagString: Untagged
@@ -2777,8 +2800,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.00000032783, y: -0.0000013411}
-  m_SizeDelta: {x: 85, y: 25}
+  m_AnchoredPosition: {x: 0.00000032783, y: -0.6269}
+  m_SizeDelta: {x: 85, y: 26.2537}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &649156074
 MonoBehaviour:
@@ -2818,6 +2841,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 649156072}
   m_CullTransparentMesh: 1
+--- !u!95 &649156076
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649156072}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ce53863f35fffa24c8271ea6539023ec, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &664016490
 GameObject:
   m_ObjectHideFlags: 0
@@ -2904,6 +2948,7 @@ GameObject:
   - component: {fileID: 666609532}
   - component: {fileID: 666609534}
   - component: {fileID: 666609533}
+  - component: {fileID: 666609535}
   m_Layer: 5
   m_Name: PerfectRect
   m_TagString: Untagged
@@ -2968,6 +3013,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 666609531}
   m_CullTransparentMesh: 1
+--- !u!95 &666609535
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 666609531}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fb8d06e4c3bb80042b984d9c838871cd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &681311214
 GameObject:
   m_ObjectHideFlags: 0
@@ -3653,6 +3719,7 @@ MonoBehaviour:
   noteBoxSP:
   - {fileID: 1474019134}
   - {fileID: 600413468}
+  timingBoxsX: []
   sound: {fileID: 0}
 --- !u!114 &897449515
 MonoBehaviour:
@@ -3666,8 +3733,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38a5a7882253b034a84ec958febc38d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  speedSP: 1.3
   longNote: 73
   tfNoteAppear:
   - {fileID: 989177164}
@@ -3679,6 +3744,12 @@ MonoBehaviour:
   - {fileID: 628172779}
   noteTime: {fileID: 4900000, guid: 3252b9bb1f4c7f945bf605ac7c21b070, type: 3}
   noteTimeNEW: {fileID: 4900000, guid: d14c1a0f2641e3d4eb2902d3139d8822, type: 3}
+  noteHitAnim:
+  - {fileID: 649156076}
+  - {fileID: 314232708}
+  - {fileID: 666609535}
+  - {fileID: 2119194088}
+  noteHit: Note1
 --- !u!61 &897449516
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3804,7 +3875,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: f91bc27cce6530749a90831a13d70e01, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 909d2de7c14a64140bd2d9450ecc5f36, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -8331,6 +8402,7 @@ GameObject:
   - component: {fileID: 2119194085}
   - component: {fileID: 2119194087}
   - component: {fileID: 2119194086}
+  - component: {fileID: 2119194088}
   m_Layer: 5
   m_Name: PerfectRect
   m_TagString: Untagged
@@ -8395,6 +8467,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2119194084}
   m_CullTransparentMesh: 1
+--- !u!95 &2119194088
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119194084}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2eec1ad31894f744bb1698ae6c267441, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2133354449
 GameObject:
   m_ObjectHideFlags: 0

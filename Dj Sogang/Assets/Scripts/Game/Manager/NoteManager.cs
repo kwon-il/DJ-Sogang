@@ -8,8 +8,9 @@ using UnityEngine;
 
 public class NoteManager : MonoBehaviour
 {
-    public double speed = 0d;
-    public double speedSP = 0d;
+    double speed = 0d;
+    double speedSP = 0d;
+    float speedLONG = 0f;
     public float longNote = 0f;
     double currentTime = 0d;
     double[] longTime = {0d, 0d, 0d, 0d};
@@ -21,14 +22,19 @@ public class NoteManager : MonoBehaviour
 
     [SerializeField] Transform[] tfNoteAppear = null;
     [SerializeField] Transform[] tfNoteAppearSP = null;
-    //[SerializeField] GameObject goNote = null;
+    //[SerializeField] GameObject goNote = null;    
     [SerializeField] TextAsset noteTime = null;
     [SerializeField] TextAsset noteTimeNEW = null;
+
+    [SerializeField] public Animator[] noteHitAnim = null;
+    public string noteHit = "Note1";
+
     string[] timesALL = null;
     string[][] timesALLt = null;
     string[] times = null;
     string[][] timest = null;
     string currentMusicName = GlobalData.musicName;
+    int level = GlobalData.levelIndex;
     UnityEngine.UI.Image tailImage;
 
     HpManager theHpManager;
@@ -48,11 +54,40 @@ public class NoteManager : MonoBehaviour
         theResult = FindObjectOfType<Result>();
         theAudioManager = FindObjectOfType<AudioManager>();
         theScoreManager = FindObjectOfType<ScoreManager>();
-
-
         // Resources/Photo 폴더에서 씬 이름과 일치하는 이미지를 불러옵니다
-        TextAsset imsi = Resources.Load<TextAsset>("NoteTime/" + currentMusicName);
-        TextAsset imsi2 = Resources.Load<TextAsset>("NoteTime/" + currentMusicName+"LONG");
+        //TextAsset imsi = Resources.Load<TextAsset>("NoteTime/" + currentMusicName);
+
+        string levelStr;
+        if (level == 0)
+            levelStr = "easy";
+        else if (level == 1)
+            levelStr = "medium";
+        else
+            levelStr = "hard";
+
+
+        int speedIDX = GlobalData.speedIndex;
+        if (speedIDX == 0)
+        {
+            speed = 0.5d;
+            speedSP = 0.8d;
+            speedLONG = 0.76f;
+        }
+        else if (speedIDX == 1)
+        {
+            speed = 1.42d;
+            speedSP = 1.58d;
+            speedLONG = 1.5f;
+        }
+        else
+        {
+            speed = 1.76d;
+            speedSP = 1.90d;
+            speedLONG = 2.26f;
+        }
+
+
+        TextAsset imsi2 = Resources.Load<TextAsset>("NoteTime/" + currentMusicName+ "/" + levelStr);
 
         times = imsi2.text.Split("\n");
         timest = new string[times.Length][];
@@ -101,13 +136,13 @@ public class NoteManager : MonoBehaviour
             Debug.Log(timest[i][0] + " " + timest[i][1] + " " + timest[i][2] + " " + timest[i][3] + " " + timest[i][4] + " " + timest[i][5]);
         }*/
         
-
+        /*
         timesALL = imsi.text.Split("\n");
         timesALLt = new string[timesALL.Length][];
         for (int i = 0; i < timesALL.Length; i++) 
         {
             timesALLt[i] = timesALL[i].Split(" ");
-        }
+        }*/
 
         theAudioManager.audioPlay();
     }
@@ -137,6 +172,7 @@ public class NoteManager : MonoBehaviour
                             theEffectManager.NoteHitEffect(i);
                             theEffectManager.JudgementHitEffect(0);
                             theTimingManager.sound.Play();
+                            noteHitAnim[i].SetTrigger(noteHit);
 
                             theHpManager.IncreaseHp((int)(10 * theTimingManager.weight[0]));
                             theTimingManager.judgementRecord[0]++;
@@ -237,7 +273,7 @@ public class NoteManager : MonoBehaviour
                                     tailImage = childTransform.GetComponent<UnityEngine.UI.Image>();
                                     tailImage.enabled = true;
                                     Vector3 currentScale = childTransform.transform.localScale;
-                                    childTransform.transform.localScale = new Vector3(currentScale.x * 1.0f, float.Parse(timest[idx][2]) * longNote, currentScale.z * 1.0f);
+                                    childTransform.transform.localScale = new Vector3(currentScale.x * 1.0f, float.Parse(timest[idx][2]) * longNote * speedLONG, currentScale.z * 1.0f);
 
                                     Collider2D cCollider = childTransform.GetComponent<Collider2D>();
                                     //Collider2D pCollider = t_note.transform.GetComponent<Collider2D>();
@@ -274,7 +310,7 @@ public class NoteManager : MonoBehaviour
                                     tailImage = childTransform.GetComponent<UnityEngine.UI.Image>();
                                     tailImage.enabled = true;
                                     Vector3 currentScale = childTransform.transform.localScale;
-                                    childTransform.transform.localScale = new Vector3(currentScale.x * 1.0f, float.Parse(timest[idx][3]) * longNote, currentScale.z * 1.0f);
+                                    childTransform.transform.localScale = new Vector3(currentScale.x * 1.0f, float.Parse(timest[idx][3]) * longNote * speedLONG, currentScale.z * 1.0f);
 
                                     Collider2D cCollider = childTransform.GetComponent<Collider2D>();
                                    // Collider2D pCollider = t_note.transform.GetComponent<Collider2D>();
@@ -310,7 +346,7 @@ public class NoteManager : MonoBehaviour
                                     tailImage = childTransform.GetComponent<UnityEngine.UI.Image>();
                                     tailImage.enabled = true;
                                     Vector3 currentScale = childTransform.transform.localScale;
-                                    childTransform.transform.localScale = new Vector3(currentScale.x * 1.0f, float.Parse(timest[idx][4]) * longNote, currentScale.z * 1.0f);
+                                    childTransform.transform.localScale = new Vector3(currentScale.x * 1.0f, float.Parse(timest[idx][4]) * longNote * speedLONG, currentScale.z * 1.0f);
 
                                     Collider2D cCollider = childTransform.GetComponent<Collider2D>();
                                     //Collider2D pCollider = t_note.transform.GetComponent<Collider2D>();
@@ -322,7 +358,7 @@ public class NoteManager : MonoBehaviour
                                 //t_note.transform.SetParent(this.transform);
                                 theTimingManager.boxNoteList.Add(t_note);
 
-                                temp--;
+                                temp--;                             
                                 if (temp == 0)
                                     idx++;
                             }
@@ -346,7 +382,7 @@ public class NoteManager : MonoBehaviour
                                     tailImage = childTransform.GetComponent<UnityEngine.UI.Image>();
                                     tailImage.enabled = true;
                                     Vector3 currentScale = childTransform.transform.localScale;
-                                    childTransform.transform.localScale = new Vector3(currentScale.x * 1.0f, float.Parse(timest[idx][5]) * longNote, currentScale.z * 1.0f);
+                                    childTransform.transform.localScale = new Vector3(currentScale.x * 1.0f, float.Parse(timest[idx][5]) * longNote * speedLONG, currentScale.z * 1.0f);
 
                                     Collider2D cCollider = childTransform.GetComponent<Collider2D>();
                                     //Collider2D pCollider = t_note.transform.GetComponent<Collider2D>();
@@ -364,6 +400,8 @@ public class NoteManager : MonoBehaviour
                             }
                         }
                     }
+
+                    //Debug.Log("idx: " + idx + "   temp: " + temp);
                 }                                    
             }
 
