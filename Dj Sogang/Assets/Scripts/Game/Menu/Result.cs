@@ -107,6 +107,7 @@ public class Result : MonoBehaviour
         GlobalData.score = t_score;
         GlobalData.rank = rank;
 
+
         WWWForm form = new WWWForm();
         form.AddField("order", "savescore");
         form.AddField("id", GlobalData.myID);
@@ -128,7 +129,7 @@ public class Result : MonoBehaviour
             }
         }
     }
-        void savescore(string jsonResponse)
+    void savescore(string jsonResponse)
     {   
         UnityEngine.Debug.Log("Raw JSON Response: " + jsonResponse);
 
